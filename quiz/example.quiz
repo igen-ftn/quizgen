@@ -1,0 +1,21 @@
+Start test
+"First test example"
+Start quiz
+Question 1 "2 + 2 is:" one answer
+Answer "a.)" "5" incorrect
+Answer "b.)" "6" incorrect
+Answer "c.)" "9" incorrect
+Answer "d.)" "4" correct
+Question 1 "Butterflies are:" one answer
+Answer "a.)" "running" incorrect
+Answer "b.)" "flying" correct
+Answer "c.)" "swimming" incorrect
+Answer "d.)" "climbing" incorrect
+Question 1 "Frogs are:" multiple answers
+Answer "a.)" "too small" correct
+Answer "b.)" "jumping" correct
+Answer "c.)" "skiing" incorrect
+Answer "d.)" "climbing" incorrect
+button ok "Submit"
+End quiz
+End test

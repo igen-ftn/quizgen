@@ -1,9 +1,0 @@
-Form begin
-"Teacher"
-field name "Name:" TextField
-field surname "Surname:" TextField
-field age "Age:" TextField
-field position "Professional title:" Combobox
-button ok "Ok"
-button cancel "Cancel"
-Form end

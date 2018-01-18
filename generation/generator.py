@@ -6,7 +6,7 @@ import os
 
 
 def generate(template_name, output_name, render_vars):
-    env = Environment(trim_blocks = True, lstrip_blocks = True, loader = PackageLoader("generation", "templates"))
+    env = Environment(trim_blocks=True, lstrip_blocks=True, loader=PackageLoader("generation", "templates"))
     template = env.get_template(template_name)
     rendered = template.render(render_vars)
     print(rendered)
@@ -16,14 +16,11 @@ def generate(template_name, output_name, render_vars):
     with open(file_name, "w+") as f:
         f.write(rendered)
 
-def main(debug = False):
-    
-    model = execute(os.path.join(root, "forms"), 'forms.tx', 'example.form', debug, debug)
-    generate("form_template.html", "form.html", {"form" : model})
+
+def main(debug=False):
+    execute(os.path.join(root, "quiz"), 'quiz.tx', 'example.quiz', debug, debug)
+    execute(os.path.join(root, "quiz"), 'quiz.tx', 'example1.survey', debug, debug)
+    #generate("test_template.html", "form.html", {"form": model})
     
 if __name__ == '__main__':
     main(True)
-
-
-    
-                    
