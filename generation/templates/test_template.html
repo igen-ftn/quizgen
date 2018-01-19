@@ -4,8 +4,12 @@
 <title>{{page.title}}</title>
 {% endblock %}
 
+{% block jumbo %}
+  <h1>{{page.title}}</h1>
+{% endblock %}
+
 {% block body %}
-<h2>{{page.title}}</h2>
+<!--h2>{{page.title}}</h2-->
 <form>
     {% for question in page.type.questions %}
         {% if question.multipleAnswers is defined %}
