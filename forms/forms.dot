@@ -1,0 +1,51 @@
+
+    digraph xtext {
+    fontname = "Bitstream Vera Sans"
+    fontsize = 8
+    node[
+        shape=record,
+        style=filled,
+        fillcolor=aliceblue
+    ]
+    nodesep = 0.3
+    edge[dir=black,arrowtail=empty]
+
+
+38270568 -> 38276328[arrowtail=diamond, dir=both, headlabel="components 1..*"]
+38270568[ label="{Form|+title:STRING\l}"]
+
+38290008[ label="{ComponentType|TextField\|TextArea\|Checkbox\|Combobox}"]
+
+38282088[ label="{Field|+name:ID\l+label:STRING\l+componentType:ComponentType\l}"]
+
+38299304[ label="{Button|+name:ID\l+label:STRING\l}"]
+
+38276328[ label="{*Component|}"]
+38276328 -> 38282088 [dir=back]
+38276328 -> 38299304 [dir=back]
+
+38050440[ label="{FLOAT|}"]
+
+38056200[ label="{NUMBER|}"]
+38056200 -> 38050440 [dir=back]
+38056200 -> 38044680 [dir=back]
+
+38038920[ label="{BOOL|}"]
+
+38034920[ label="{STRING|}"]
+
+38068536[ label="{*OBJECT|}"]
+38068536 -> 38062776 [dir=back]
+
+38029976[ label="{ID|}"]
+
+38044680[ label="{INT|}"]
+
+38062776[ label="{BASETYPE|}"]
+38062776 -> 38056200 [dir=back]
+38062776 -> 38038920 [dir=back]
+38062776 -> 38029976 [dir=back]
+38062776 -> 38034920 [dir=back]
+
+
+}

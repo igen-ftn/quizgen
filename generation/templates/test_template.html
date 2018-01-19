@@ -1,6 +1,10 @@
-<html>
-<head><title>{{page.title}}</title></head>
-<body>
+{% extends 'base.html' %}
+
+{% block head%}
+<title>{{page.title}}</title>
+{% endblock %}
+
+{% block body %}
 <h2>{{page.title}}</h2>
 <form>
     {% for question in page.type.questions %}
@@ -22,6 +26,4 @@
     {% endfor %}
     <input type="Submit" value="{{page.type.button.label}}">
 </form>
-
-</body>
-</html>
+{% endblock %}

@@ -11,59 +11,59 @@
     edge[dir=black,arrowtail=empty]
 
 
-23138280[ label="{AnswerType|one answer\|multiple answers}"]
+39772760[ label="{Correct|correct\|incorrect}"]
 
-23134248[ label="{QuizAnswer|+tag:STRING\l+text:STRING\l+isCorrect:Correct\l}"]
+40108936[ label="{*Type|}"]
+40108936 -> 39930504 [dir=back]
+40108936 -> 39959240 [dir=back]
 
-23093272[ label="{Correct|correct\|incorrect}"]
+39930504 -> 39899768[arrowtail=diamond, dir=both, headlabel="questions 1..*"]
+39930504 -> 40204968[arrowtail=diamond, dir=both, headlabel="button "]
+39930504[ label="{Quiz|}"]
 
-22986248 -> 22946360[arrowtail=diamond, dir=both, headlabel="type "]
-22986248[ label="{Test|+title:STRING\l}"]
+40204968[ label="{Button|+name:ID\l+label:STRING\l}"]
 
-23191192 -> 23170360[arrowtail=diamond, dir=both, headlabel="questions 1..*"]
-23191192 -> 23314728[arrowtail=diamond, dir=both, headlabel="button "]
-23191192[ label="{Survey|}"]
+40199880[ label="{PlaneAnswer|+text:STRING\l}"]
 
-23065816 -> 23134248[arrowtail=diamond, dir=both, headlabel="answers 1..*"]
-23065816[ label="{QuizQuestion|+ordinal:INT\l+text:STRING\l+multipleAnswers:AnswerType\l}"]
+39959240 -> 39524968[arrowtail=diamond, dir=both, headlabel="questions 1..*"]
+39959240 -> 40204968[arrowtail=diamond, dir=both, headlabel="button "]
+39959240[ label="{Survey|}"]
 
-23314728[ label="{Button|+name:ID\l+label:STRING\l}"]
+39899768 -> 39984952[arrowtail=diamond, dir=both, headlabel="answers 1..*"]
+39899768[ label="{QuizQuestion|+ordinal:INT\l+text:STRING\l+multipleAnswers:AnswerType\l}"]
 
-23178024 -> 23065816[arrowtail=diamond, dir=both, headlabel="questions 1..*"]
-23178024 -> 23314728[arrowtail=diamond, dir=both, headlabel="button "]
-23178024[ label="{Quiz|}"]
+39984952[ label="{QuizAnswer|+tag:STRING\l+text:STRING\l+isCorrect:Correct\l}"]
 
-23170360 -> 23309640[arrowtail=diamond, dir=both, headlabel="planeAnswer "]
-23170360[ label="{PlaneQuestion|+ordinal:INT\l+text:STRING\l}"]
+40090328 -> 40108936[arrowtail=diamond, dir=both, headlabel="type "]
+40090328[ label="{Test|+title:STRING\l}"]
 
-23309640[ label="{PlaneAnswer|+text:STRING\l}"]
+39524968 -> 40199880[arrowtail=diamond, dir=both, headlabel="planeAnswer "]
+39524968[ label="{PlaneQuestion|+ordinal:INT\l+text:STRING\l}"]
 
-22946360[ label="{*Type|}"]
-22946360 -> 23178024 [dir=back]
-22946360 -> 23191192 [dir=back]
+40000920[ label="{AnswerType|one answer\|multiple answers}"]
 
-22422760[ label="{ID|}"]
+40082056[ label="{STRING|}"]
 
-23043480[ label="{INT|}"]
+39612584[ label="{FLOAT|}"]
 
-22630408[ label="{STRING|}"]
+40120472[ label="{NUMBER|}"]
+40120472 -> 39612584 [dir=back]
+40120472 -> 39957256 [dir=back]
 
-22445064[ label="{FLOAT|}"]
+39957256[ label="{INT|}"]
 
-23151656[ label="{*OBJECT|}"]
-23151656 -> 22553336 [dir=back]
+39787144[ label="{*OBJECT|}"]
+39787144 -> 39865608 [dir=back]
 
-22994504[ label="{BOOL|}"]
+39865608[ label="{BASETYPE|}"]
+39865608 -> 40120472 [dir=back]
+39865608 -> 39854776 [dir=back]
+39865608 -> 39531896 [dir=back]
+39865608 -> 40082056 [dir=back]
 
-22884680[ label="{NUMBER|}"]
-22884680 -> 22445064 [dir=back]
-22884680 -> 23043480 [dir=back]
+39854776[ label="{BOOL|}"]
 
-22553336[ label="{BASETYPE|}"]
-22553336 -> 22884680 [dir=back]
-22553336 -> 22994504 [dir=back]
-22553336 -> 22422760 [dir=back]
-22553336 -> 22630408 [dir=back]
+39531896[ label="{ID|}"]
 
 
 }
