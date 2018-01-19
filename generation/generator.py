@@ -18,9 +18,10 @@ def generate(template_name, output_name, render_vars):
 
 
 def main(debug=False):
-    execute(os.path.join(root, "quiz"), 'quiz.tx', 'example.quiz', debug, debug)
-    execute(os.path.join(root, "quiz"), 'quiz.tx', 'example1.survey', debug, debug)
-    #generate("test_template.html", "form.html", {"form": model})
+    model = execute(os.path.join(root, "quiz"), 'quiz.tx', 'example.quiz', debug, debug)
+    modelsurvey = execute(os.path.join(root, "quiz"), 'quiz.tx', 'example1.survey', debug, debug)
+    generate("test_template.html", "quiz.html", {"page": model})
+    generate("test_template.html", "survey.html", {"page": modelsurvey})
     
 if __name__ == '__main__':
     main(True)

@@ -1,0 +1,69 @@
+
+    digraph xtext {
+    fontname = "Bitstream Vera Sans"
+    fontsize = 8
+    node[
+        shape=record,
+        style=filled,
+        fillcolor=aliceblue
+    ]
+    nodesep = 0.3
+    edge[dir=black,arrowtail=empty]
+
+
+23138280[ label="{AnswerType|one answer\|multiple answers}"]
+
+23134248[ label="{QuizAnswer|+tag:STRING\l+text:STRING\l+isCorrect:Correct\l}"]
+
+23093272[ label="{Correct|correct\|incorrect}"]
+
+22986248 -> 22946360[arrowtail=diamond, dir=both, headlabel="type "]
+22986248[ label="{Test|+title:STRING\l}"]
+
+23191192 -> 23170360[arrowtail=diamond, dir=both, headlabel="questions 1..*"]
+23191192 -> 23314728[arrowtail=diamond, dir=both, headlabel="button "]
+23191192[ label="{Survey|}"]
+
+23065816 -> 23134248[arrowtail=diamond, dir=both, headlabel="answers 1..*"]
+23065816[ label="{QuizQuestion|+ordinal:INT\l+text:STRING\l+multipleAnswers:AnswerType\l}"]
+
+23314728[ label="{Button|+name:ID\l+label:STRING\l}"]
+
+23178024 -> 23065816[arrowtail=diamond, dir=both, headlabel="questions 1..*"]
+23178024 -> 23314728[arrowtail=diamond, dir=both, headlabel="button "]
+23178024[ label="{Quiz|}"]
+
+23170360 -> 23309640[arrowtail=diamond, dir=both, headlabel="planeAnswer "]
+23170360[ label="{PlaneQuestion|+ordinal:INT\l+text:STRING\l}"]
+
+23309640[ label="{PlaneAnswer|+text:STRING\l}"]
+
+22946360[ label="{*Type|}"]
+22946360 -> 23178024 [dir=back]
+22946360 -> 23191192 [dir=back]
+
+22422760[ label="{ID|}"]
+
+23043480[ label="{INT|}"]
+
+22630408[ label="{STRING|}"]
+
+22445064[ label="{FLOAT|}"]
+
+23151656[ label="{*OBJECT|}"]
+23151656 -> 22553336 [dir=back]
+
+22994504[ label="{BOOL|}"]
+
+22884680[ label="{NUMBER|}"]
+22884680 -> 22445064 [dir=back]
+22884680 -> 23043480 [dir=back]
+
+22553336[ label="{BASETYPE|}"]
+22553336 -> 22884680 [dir=back]
+22553336 -> 22994504 [dir=back]
+22553336 -> 22422760 [dir=back]
+22553336 -> 22630408 [dir=back]
+
+
+}
