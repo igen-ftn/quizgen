@@ -18,15 +18,13 @@ Quiz:
 
 Survey:
     "Start survey"
-    questions += PlaneQuestion
+    questions += SurveyQuestion
     button = Button
     "End survey"
 ;
 
 QuizQuestion:
-    "Question"
-    ordinal = INT
-    text = STRING
+    question = Question
     multipleAnswers = AnswerType
     answers += QuizAnswer
 ;
@@ -35,26 +33,29 @@ AnswerType:
     'one answer' | 'multiple answers'
 ;
 
-PlaneQuestion:
+SurveyQuestion:
+    question = Question
+    ( (answers += Answer) | ("Answer" text = STRING) )
+;
+
+Question:
     "Question"
     ordinal = INT
     text = STRING
-    planeAnswer = PlaneAnswer
 ;
 
 QuizAnswer:
-    "Answer"
-    tag = STRING
-    text = STRING
+    answer = Answer
     isCorrect = Correct
 ;
 
 Correct:
-    'correct' | 'incorrect'
+    '+' | '-'
 ;
 
-PlaneAnswer:
+Answer:
     "Answer"
+    tag = STRING
     text = STRING
 ;
 
