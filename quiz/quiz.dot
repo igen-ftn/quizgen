@@ -1,0 +1,69 @@
+
+    digraph xtext {
+    fontname = "Bitstream Vera Sans"
+    fontsize = 8
+    node[
+        shape=record,
+        style=filled,
+        fillcolor=aliceblue
+    ]
+    nodesep = 0.3
+    edge[dir=black,arrowtail=empty]
+
+
+30023624[ label="{QuizAnswer|+tag:STRING\l+text:STRING\l+isCorrect:Correct\l}"]
+
+29637864[ label="{PlaneAnswer|+text:STRING\l}"]
+
+30083048 -> 29637864[arrowtail=diamond, dir=both, headlabel="planeAnswer "]
+30083048[ label="{PlaneQuestion|+ordinal:INT\l+text:STRING\l}"]
+
+29095336[ label="{*Type|}"]
+29095336 -> 30211784 [dir=back]
+29095336 -> 30156664 [dir=back]
+
+30192040 -> 30023624[arrowtail=diamond, dir=both, headlabel="answers 1..*"]
+30192040[ label="{QuizQuestion|+ordinal:INT\l+text:STRING\l+multipleAnswers:AnswerType\l}"]
+
+30308744 -> 29095336[arrowtail=diamond, dir=both, headlabel="type "]
+30308744[ label="{Test|+title:STRING\l}"]
+
+30156664 -> 30083048[arrowtail=diamond, dir=both, headlabel="questions 1..*"]
+30156664 -> 30202856[arrowtail=diamond, dir=both, headlabel="button "]
+30156664[ label="{Survey|}"]
+
+30225736[ label="{AnswerType|one answer\|multiple answers}"]
+
+30047176[ label="{Correct|correct\|incorrect}"]
+
+30211784 -> 30192040[arrowtail=diamond, dir=both, headlabel="questions 1..*"]
+30211784 -> 30202856[arrowtail=diamond, dir=both, headlabel="button "]
+30211784[ label="{Quiz|}"]
+
+30202856[ label="{Button|+name:ID\l+label:STRING\l}"]
+
+29606488[ label="{NUMBER|}"]
+29606488 -> 30013160 [dir=back]
+29606488 -> 29087000 [dir=back]
+
+30278536[ label="{BOOL|}"]
+
+29913288[ label="{*OBJECT|}"]
+29913288 -> 29528504 [dir=back]
+
+29528504[ label="{BASETYPE|}"]
+29528504 -> 29606488 [dir=back]
+29528504 -> 30278536 [dir=back]
+29528504 -> 29853048 [dir=back]
+29528504 -> 30059064 [dir=back]
+
+29087000[ label="{INT|}"]
+
+30059064[ label="{STRING|}"]
+
+29853048[ label="{ID|}"]
+
+30013160[ label="{FLOAT|}"]
+
+
+}

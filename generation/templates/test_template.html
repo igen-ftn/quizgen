@@ -1,6 +1,33 @@
-<html>
-<head><title>Test</title></head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block head%}
+<title>{{page.title}}</title>
+{% endblock %}
+
+{% block jumbo %}
+  <h1>{{page.title}}</h1>
+{% endblock %}
+
+{% block body %}
+<!--h2>{{page.title}}</h2-->
+<form>
+    {% for question in page.type.questions %}
+        {% if question.multipleAnswers is defined %}
+            <fieldset><legend>Question {{question.ordinal}}</legend>
+                <dl><dt>{{question.text}} <br/>
+                    {% if question.multipleAnswers == 'one answer' %}
+                        {% for answer in question.answers %}
+                            <dd><input type="radio" name="{{question.text}}" value="{{answer.text}}"> {{answer.text}}</dd>
+                        {% endfor %}
+                    {% else %}
+                        {% for answer in question.answers %}
+                            <dd><input type="checkbox" name="{{question.text}}" value="{{answer.text}}"> {{answer.text}}</dd>
+                        {% endfor %}
+                    {% endif %}
+                </dt></dl>
+            </fieldset>
+        {% endif %}
+    {% endfor %}
+    <input type="Submit" value="{{page.type.button.label}}">
+</form>
+{% endblock %}

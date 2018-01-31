@@ -1,0 +1,32 @@
+
+    digraph xtext {
+    fontname = "Bitstream Vera Sans"
+    fontsize = 8
+    node[
+        shape=record,
+        style=filled,
+        fillcolor=aliceblue
+    ]
+    nodesep = 0.3
+    edge[dir=black,arrowtail=empty]
+
+
+140619228502728 -> 140619226738136 [label="type" arrowtail=diamond dir=both]
+140619226738136 -> 140619226736568 [label="questions:0" arrowtail=diamond dir=both]
+140619226736568 -> 140619226735504 [label="planeAnswer" arrowtail=diamond dir=both]
+140619226735504[label="{:PlaneAnswer|+text:str='4'\l}"]
+140619226736568[label="{:PlaneQuestion|+ordinal:int=1\l+text:str='2 + 2 is:'\l}"]
+140619226738136 -> 140619226738584 [label="questions:1" arrowtail=diamond dir=both]
+140619226738584 -> 140619226735168 [label="planeAnswer" arrowtail=diamond dir=both]
+140619226735168[label="{:PlaneAnswer|+text:str='small'\l}"]
+140619226738584[label="{:PlaneQuestion|+ordinal:int=1\l+text:str='Butterflies are:'\l}"]
+140619226738136 -> 140619226735560 [label="questions:2" arrowtail=diamond dir=both]
+140619226735560 -> 140619226735224 [label="planeAnswer" arrowtail=diamond dir=both]
+140619226735224[label="{:PlaneAnswer|+text:str='jumping'\l}"]
+140619226735560[label="{:PlaneQuestion|+ordinal:int=1\l+text:str='Frogs are:'\l}"]
+140619226738136 -> 140619226736512 [label="button" arrowtail=diamond dir=both]
+140619226736512[label="{ok:Button|+label:str='Submit'\l}"]
+140619226738136[label="{:Survey|}"]
+140619228502728[label="{:Test|+title:str='First test survey example'\l}"]
+
+}

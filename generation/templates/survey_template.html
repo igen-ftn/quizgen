@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block head%}
+<title>{{page.title}}</title>
+{% endblock %}
+
+{% block jumbo %}
+  <h1>{{page.title}}</h1>
+{% endblock %}
+
+{% block body %}
+<!--h2>{{page.title}}</h2-->
+<form>
+    {% for question in page.type.questions %}
+          <fieldset><legend>Question {{question.ordinal}}</legend>
+              <dl><dt>{{question.text}} <br/>
+                  <input type="text" name="guestion.answer" value="">
+              </dt></dl>
+          </fieldset>
+    {% endfor %}
+    <input type="Submit" value="{{page.type.button.label}}">
+</form>
+{% endblock %}

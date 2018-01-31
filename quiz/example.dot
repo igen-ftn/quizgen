@@ -1,0 +1,50 @@
+
+    digraph xtext {
+    fontname = "Bitstream Vera Sans"
+    fontsize = 8
+    node[
+        shape=record,
+        style=filled,
+        fillcolor=aliceblue
+    ]
+    nodesep = 0.3
+    edge[dir=black,arrowtail=empty]
+
+
+140619227879464 -> 140619227604528 [label="type" arrowtail=diamond dir=both]
+140619227604528 -> 140619227605760 [label="questions:0" arrowtail=diamond dir=both]
+140619227605760 -> 140619227605984 [label="answers:0" arrowtail=diamond dir=both]
+140619227605984[label="{:QuizAnswer|+tag:str='a.)'\l+text:str='5'\l+isCorrect:str='incorrect'\l}"]
+140619227605760 -> 140619227606096 [label="answers:1" arrowtail=diamond dir=both]
+140619227606096[label="{:QuizAnswer|+tag:str='b.)'\l+text:str='6'\l+isCorrect:str='incorrect'\l}"]
+140619227605760 -> 140619227606208 [label="answers:2" arrowtail=diamond dir=both]
+140619227606208[label="{:QuizAnswer|+tag:str='c.)'\l+text:str='9'\l+isCorrect:str='incorrect'\l}"]
+140619227605760 -> 140619227606320 [label="answers:3" arrowtail=diamond dir=both]
+140619227606320[label="{:QuizAnswer|+tag:str='d.)'\l+text:str='4'\l+isCorrect:str='correct'\l}"]
+140619227605760[label="{:QuizQuestion|+ordinal:int=1\l+text:str='2 + 2 is:'\l+multipleAnswers:str='one answer'\l}"]
+140619227604528 -> 140619227605928 [label="questions:1" arrowtail=diamond dir=both]
+140619227605928 -> 140619227606432 [label="answers:0" arrowtail=diamond dir=both]
+140619227606432[label="{:QuizAnswer|+tag:str='a.)'\l+text:str='running'\l+isCorrect:str='incorrect'\l}"]
+140619227605928 -> 140619227606600 [label="answers:1" arrowtail=diamond dir=both]
+140619227606600[label="{:QuizAnswer|+tag:str='b.)'\l+text:str='flying'\l+isCorrect:str='correct'\l}"]
+140619227605928 -> 140619227606824 [label="answers:2" arrowtail=diamond dir=both]
+140619227606824[label="{:QuizAnswer|+tag:str='c.)'\l+text:str='swimming'\l+isCorrect:str='incorrect'\l}"]
+140619227605928 -> 140619227606992 [label="answers:3" arrowtail=diamond dir=both]
+140619227606992[label="{:QuizAnswer|+tag:str='d.)'\l+text:str='climbing'\l+isCorrect:str='incorrect'\l}"]
+140619227605928[label="{:QuizQuestion|+ordinal:int=2\l+text:str='Butterflies are:'\l+multipleAnswers:str='one answer'\l}"]
+140619227604528 -> 140619227606040 [label="questions:2" arrowtail=diamond dir=both]
+140619227606040 -> 140619227635784 [label="answers:0" arrowtail=diamond dir=both]
+140619227635784[label="{:QuizAnswer|+tag:str='a.)'\l+text:str='too small'\l+isCorrect:str='correct'\l}"]
+140619227606040 -> 140619227635952 [label="answers:1" arrowtail=diamond dir=both]
+140619227635952[label="{:QuizAnswer|+tag:str='b.)'\l+text:str='jumping'\l+isCorrect:str='correct'\l}"]
+140619227606040 -> 140619227636064 [label="answers:2" arrowtail=diamond dir=both]
+140619227636064[label="{:QuizAnswer|+tag:str='c.)'\l+text:str='skiing'\l+isCorrect:str='incorrect'\l}"]
+140619227606040 -> 140619227636288 [label="answers:3" arrowtail=diamond dir=both]
+140619227636288[label="{:QuizAnswer|+tag:str='d.)'\l+text:str='climbing'\l+isCorrect:str='incorrect'\l}"]
+140619227606040[label="{:QuizQuestion|+ordinal:int=3\l+text:str='Frogs are:'\l+multipleAnswers:str='multiple answers'\l}"]
+140619227604528 -> 140619227604640 [label="button" arrowtail=diamond dir=both]
+140619227604640[label="{ok:Button|+label:str='Submit'\l}"]
+140619227604528[label="{:Quiz|}"]
+140619227879464[label="{:Test|+title:str='First test example'\l}"]
+
+}

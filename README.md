@@ -12,3 +12,12 @@ Graphviz (if pip install doesn't work, try adding sudo, if it fails, sudo apt-ge
 # run the application
 
 for pycharm, add new python configuration and for a script file choose generator.py and run it
+
+
+# run the simple server
+
+
+Move into output directory and run the following command:
+```
+python server.py
+```
