@@ -12,9 +12,9 @@
 <!--h2>{{page.title}}</h2-->
 <form>
     {% for question in page.type.questions %}
-          <fieldset><legend>Question {{question.ordinal}}</legend>
-              <dl><dt>{{question.text}} <br/>
-                  <input type="text" name="guestion.answer" value="">
+          <fieldset><legend>Question {{question.question.ordinal}}</legend>
+              <dl><dt>{{question.question.text}} <br/>
+                  <input type="text" name="{{question.question.text}}" value="">
               </dt></dl>
           </fieldset>
     {% endfor %}

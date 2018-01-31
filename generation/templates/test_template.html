@@ -13,15 +13,15 @@
 <form>
     {% for question in page.type.questions %}
         {% if question.multipleAnswers is defined %}
-            <fieldset><legend>Question {{question.ordinal}}</legend>
-                <dl><dt>{{question.text}} <br/>
+            <fieldset><legend>Question {{question.question.ordinal}}</legend>
+                <dl><dt>{{question.question.text}} <br/>
                     {% if question.multipleAnswers == 'one answer' %}
                         {% for answer in question.answers %}
-                            <dd><input type="radio" name="{{question.text}}" value="{{answer.text}}"> {{answer.text}}</dd>
+                            <dd><input type="radio" name="{{question.question.text}}" value="{{answer.answer.text}}"> {{answer.answer.text}}</dd>
                         {% endfor %}
                     {% else %}
                         {% for answer in question.answers %}
-                            <dd><input type="checkbox" name="{{question.text}}" value="{{answer.text}}"> {{answer.text}}</dd>
+                            <dd><input type="checkbox" name="{{question.question.text}}" value="{{answer.answer.text}}"> {{answer.answer.text}}</dd>
                         {% endfor %}
                     {% endif %}
                 </dt></dl>

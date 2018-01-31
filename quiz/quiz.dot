@@ -11,59 +11,64 @@
     edge[dir=black,arrowtail=empty]
 
 
-30023624[ label="{QuizAnswer|+tag:STRING\l+text:STRING\l+isCorrect:Correct\l}"]
+2153156395592 -> 2153156398424[arrowtail=diamond, dir=both, headlabel="type "]
+2153156395592[ label="{Test|+title:STRING\l}"]
 
-29637864[ label="{PlaneAnswer|+text:STRING\l}"]
+2153156398424[ label="{*Type|}"]
+2153156398424 -> 2153156414472 [dir=back]
+2153156398424 -> 2153156416360 [dir=back]
 
-30083048 -> 29637864[arrowtail=diamond, dir=both, headlabel="planeAnswer "]
-30083048[ label="{PlaneQuestion|+ordinal:INT\l+text:STRING\l}"]
+2153156414472 -> 2153156427688[arrowtail=diamond, dir=both, headlabel="questions 1..*"]
+2153156414472 -> 2153156437128[arrowtail=diamond, dir=both, headlabel="button "]
+2153156414472[ label="{Quiz|}"]
 
-29095336[ label="{*Type|}"]
-29095336 -> 30211784 [dir=back]
-29095336 -> 30156664 [dir=back]
+2153156416360 -> 2153156422968[arrowtail=diamond, dir=both, headlabel="questions 1..*"]
+2153156416360 -> 2153156437128[arrowtail=diamond, dir=both, headlabel="button "]
+2153156416360[ label="{Survey|}"]
 
-30192040 -> 30023624[arrowtail=diamond, dir=both, headlabel="answers 1..*"]
-30192040[ label="{QuizQuestion|+ordinal:INT\l+text:STRING\l+multipleAnswers:AnswerType\l}"]
+2153156427688 -> 2153156426744[arrowtail=diamond, dir=both, headlabel="question "]
+2153156427688 -> 2153156448456[arrowtail=diamond, dir=both, headlabel="answers 1..*"]
+2153156427688[ label="{QuizQuestion|+multipleAnswers:AnswerType\l}"]
 
-30308744 -> 29095336[arrowtail=diamond, dir=both, headlabel="type "]
-30308744[ label="{Test|+title:STRING\l}"]
+2153156421080[ label="{AnswerType|one answer\|multiple answers}"]
 
-30156664 -> 30083048[arrowtail=diamond, dir=both, headlabel="questions 1..*"]
-30156664 -> 30202856[arrowtail=diamond, dir=both, headlabel="button "]
-30156664[ label="{Survey|}"]
+2153156422968 -> 2153156426744[arrowtail=diamond, dir=both, headlabel="question "]
+2153156422968 -> 2153156444680[arrowtail=diamond, dir=both, headlabel="answers 1..*"]
+2153156422968[ label="{SurveyQuestion|+text:STRING\l}"]
 
-30225736[ label="{AnswerType|one answer\|multiple answers}"]
+2153156426744[ label="{Question|+ordinal:INT\l+text:STRING\l}"]
 
-30047176[ label="{Correct|correct\|incorrect}"]
+2153156448456 -> 2153156444680[arrowtail=diamond, dir=both, headlabel="answer "]
+2153156448456[ label="{QuizAnswer|+isCorrect:Correct\l}"]
 
-30211784 -> 30192040[arrowtail=diamond, dir=both, headlabel="questions 1..*"]
-30211784 -> 30202856[arrowtail=diamond, dir=both, headlabel="button "]
-30211784[ label="{Quiz|}"]
+2153156436184[ label="{Correct|+\|-}"]
 
-30202856[ label="{Button|+name:ID\l+label:STRING\l}"]
+2153156444680[ label="{Answer|+tag:STRING\l+text:STRING\l}"]
 
-29606488[ label="{NUMBER|}"]
-29606488 -> 30013160 [dir=back]
-29606488 -> 29087000 [dir=back]
+2153156437128[ label="{Button|+name:ID\l+label:STRING\l}"]
 
-30278536[ label="{BOOL|}"]
+2153156376712[ label="{ID|}"]
 
-29913288[ label="{*OBJECT|}"]
-29913288 -> 29528504 [dir=back]
+2153156396536[ label="{STRING|}"]
 
-29528504[ label="{BASETYPE|}"]
-29528504 -> 29606488 [dir=back]
-29528504 -> 30278536 [dir=back]
-29528504 -> 29853048 [dir=back]
-29528504 -> 30059064 [dir=back]
+2153156405032[ label="{BOOL|}"]
 
-29087000[ label="{INT|}"]
+2153156406920[ label="{INT|}"]
 
-30059064[ label="{STRING|}"]
+2153156409752[ label="{FLOAT|}"]
 
-29853048[ label="{ID|}"]
+2153156411640[ label="{NUMBER|}"]
+2153156411640 -> 2153156409752 [dir=back]
+2153156411640 -> 2153156406920 [dir=back]
 
-30013160[ label="{FLOAT|}"]
+2153156419192[ label="{BASETYPE|}"]
+2153156419192 -> 2153156411640 [dir=back]
+2153156419192 -> 2153156405032 [dir=back]
+2153156419192 -> 2153156376712 [dir=back]
+2153156419192 -> 2153156396536 [dir=back]
+
+2153156432408[ label="{*OBJECT|}"]
+2153156432408 -> 2153156419192 [dir=back]
 
 
 }
