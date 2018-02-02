@@ -45,8 +45,7 @@ Question:
 ;
 
 QuizAnswer:
-    answer = Answer
-    isCorrect = Correct
+    (( answer = Answer isCorrect = Correct) | answer = OrderedAnswer | answer = MatchingAnswer)
 ;
 
 Correct:
@@ -57,6 +56,24 @@ Answer:
     "Answer"
     tag = STRING
     text = STRING
+;
+
+OrderedAnswer:
+    "Answer"
+    order = "ordered"
+    sortedAnswers += STRING
+;
+
+MatchingAnswer:
+    "Answer"
+    matching = "matching"
+    matchedAnswers += Matches
+;
+
+Matches:
+    key = STRING
+    value = STRING
+    ';'
 ;
 
 Button:

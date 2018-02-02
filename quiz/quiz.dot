@@ -11,64 +11,70 @@
     edge[dir=black,arrowtail=empty]
 
 
-2153156395592 -> 2153156398424[arrowtail=diamond, dir=both, headlabel="type "]
-2153156395592[ label="{Test|+title:STRING\l}"]
+2023246167896 -> 2023246152792[arrowtail=diamond, dir=both, headlabel="type "]
+2023246167896[ label="{Test|+title:STRING\l}"]
 
-2153156398424[ label="{*Type|}"]
-2153156398424 -> 2153156414472 [dir=back]
-2153156398424 -> 2153156416360 [dir=back]
+2023246152792[ label="{*Type|}"]
+2023246152792 -> 2023246144296 [dir=back]
+2023246152792 -> 2023246151848 [dir=back]
 
-2153156414472 -> 2153156427688[arrowtail=diamond, dir=both, headlabel="questions 1..*"]
-2153156414472 -> 2153156437128[arrowtail=diamond, dir=both, headlabel="button "]
-2153156414472[ label="{Quiz|}"]
+2023246144296 -> 2023246172616[arrowtail=diamond, dir=both, headlabel="questions 1..*"]
+2023246144296 -> 2023246156568[arrowtail=diamond, dir=both, headlabel="button "]
+2023246144296[ label="{Quiz|}"]
 
-2153156416360 -> 2153156422968[arrowtail=diamond, dir=both, headlabel="questions 1..*"]
-2153156416360 -> 2153156437128[arrowtail=diamond, dir=both, headlabel="button "]
-2153156416360[ label="{Survey|}"]
+2023246151848 -> 2023246187720[arrowtail=diamond, dir=both, headlabel="questions 1..*"]
+2023246151848 -> 2023246156568[arrowtail=diamond, dir=both, headlabel="button "]
+2023246151848[ label="{Survey|}"]
 
-2153156427688 -> 2153156426744[arrowtail=diamond, dir=both, headlabel="question "]
-2153156427688 -> 2153156448456[arrowtail=diamond, dir=both, headlabel="answers 1..*"]
-2153156427688[ label="{QuizQuestion|+multipleAnswers:AnswerType\l}"]
+2023246172616 -> 2023246179224[arrowtail=diamond, dir=both, headlabel="question "]
+2023246172616 -> 2023246181112[arrowtail=diamond, dir=both, headlabel="answers 1..*"]
+2023246172616[ label="{QuizQuestion|+multipleAnswers:AnswerType\l}"]
 
-2153156421080[ label="{AnswerType|one answer\|multiple answers}"]
+2023246177336[ label="{AnswerType|one answer\|multiple answers}"]
 
-2153156422968 -> 2153156426744[arrowtail=diamond, dir=both, headlabel="question "]
-2153156422968 -> 2153156444680[arrowtail=diamond, dir=both, headlabel="answers 1..*"]
-2153156422968[ label="{SurveyQuestion|+text:STRING\l}"]
+2023246187720 -> 2023246179224[arrowtail=diamond, dir=both, headlabel="question "]
+2023246187720 -> 2023246189608[arrowtail=diamond, dir=both, headlabel="answers 1..*"]
+2023246187720[ label="{SurveyQuestion|+text:STRING\l}"]
 
-2153156426744[ label="{Question|+ordinal:INT\l+text:STRING\l}"]
+2023246179224[ label="{Question|+ordinal:INT\l+text:STRING\l}"]
 
-2153156448456 -> 2153156444680[arrowtail=diamond, dir=both, headlabel="answer "]
-2153156448456[ label="{QuizAnswer|+isCorrect:Correct\l}"]
+2023246181112[ label="{QuizAnswer|+answer:OBJECT\l+isCorrect:Correct\l}"]
 
-2153156436184[ label="{Correct|+\|-}"]
+2023246183944[ label="{Correct|+\|-}"]
 
-2153156444680[ label="{Answer|+tag:STRING\l+text:STRING\l}"]
+2023246189608[ label="{Answer|+tag:STRING\l+text:STRING\l}"]
 
-2153156437128[ label="{Button|+name:ID\l+label:STRING\l}"]
+2023246192440[ label="{OrderedAnswer|+order:STRING\l+sortedAnswers:list[STRING]\l}"]
 
-2153156376712[ label="{ID|}"]
+2023246162232 -> 2023246195272[arrowtail=diamond, dir=both, headlabel="matchedAnswers 1..*"]
+2023246162232[ label="{MatchingAnswer|+matching:STRING\l}"]
 
-2153156396536[ label="{STRING|}"]
+2023246195272[ label="{Matches|+key:STRING\l+value:STRING\l}"]
 
-2153156405032[ label="{BOOL|}"]
+2023246156568[ label="{Button|+name:ID\l+label:STRING\l}"]
 
-2153156406920[ label="{INT|}"]
+2023246394456[ label="{ID|}"]
 
-2153156409752[ label="{FLOAT|}"]
+2023246146184[ label="{STRING|}"]
 
-2153156411640[ label="{NUMBER|}"]
-2153156411640 -> 2153156409752 [dir=back]
-2153156411640 -> 2153156406920 [dir=back]
+2023246157512[ label="{BOOL|}"]
 
-2153156419192[ label="{BASETYPE|}"]
-2153156419192 -> 2153156411640 [dir=back]
-2153156419192 -> 2153156405032 [dir=back]
-2153156419192 -> 2153156376712 [dir=back]
-2153156419192 -> 2153156396536 [dir=back]
+2023246147128[ label="{INT|}"]
 
-2153156432408[ label="{*OBJECT|}"]
-2153156432408 -> 2153156419192 [dir=back]
+2023246164120[ label="{FLOAT|}"]
+
+2023246168840[ label="{NUMBER|}"]
+2023246168840 -> 2023246164120 [dir=back]
+2023246168840 -> 2023246147128 [dir=back]
+
+2023246173560[ label="{BASETYPE|}"]
+2023246173560 -> 2023246168840 [dir=back]
+2023246173560 -> 2023246157512 [dir=back]
+2023246173560 -> 2023246394456 [dir=back]
+2023246173560 -> 2023246146184 [dir=back]
+
+2023246166952[ label="{*OBJECT|}"]
+2023246166952 -> 2023246173560 [dir=back]
 
 
 }

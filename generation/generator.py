@@ -24,5 +24,6 @@ def main(debug=False):
     generate("survey_template.html", "survey.html", {"page": modelsurvey})
     generate("home_template.html", "index.html", {"page": model})
 
+
 if __name__ == '__main__':
     main(True)

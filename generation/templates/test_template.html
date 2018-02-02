@@ -14,10 +14,29 @@
     {% for question in page.type.questions %}
         {% if question.multipleAnswers is defined %}
             <fieldset><legend>Question {{question.question.ordinal}}</legend>
-                <dl><dt>{{question.question.text}} <br/>
+                <dl><dt>{{question.question.text}} <br/><br/>
                     {% if question.multipleAnswers == 'one answer' %}
                         {% for answer in question.answers %}
+                            {% if answer.answer.order %}
+                                <ul>
+                                {% for orderedAnswer in answer.answer.sortedAnswers  %}
+                                    <li>{{orderedAnswer}}</li>
+                                {% endfor %}
+                                </ul>
+                            {% elif answer.answer.matching %}
+                                <ul style="display: inline-block;">
+                                {% for matchedAnswers in answer.answer.matchedAnswers  %}
+                                    <li>{{matchedAnswers.key}}</li>
+                                {% endfor %}
+                                </ul>
+                                <ul style="display: inline-block;">
+                                {% for matchedAnswers in answer.answer.matchedAnswers  %}
+                                    <li>{{matchedAnswers.value}}</li>
+                                {% endfor %}
+                                </ul>
+                            {% else %}
                             <dd><input type="radio" name="{{question.question.text}}" value="{{answer.answer.text}}"> {{answer.answer.text}}</dd>
+                            {% endif %}
                         {% endfor %}
                     {% else %}
                         {% for answer in question.answers %}
