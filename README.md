@@ -21,3 +21,10 @@ Move into output directory and run the following command:
 ```
 python server.py
 ```
+
+## Django
+
+```
+./manage.py runserver
+./manage.py migrate
+```

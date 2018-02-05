@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- block can be overwriten in sub templates/files with same sintax -->
+<title>First test example</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="index.html">QuizGen</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="index.html">Home</a></li>
+          <li><a href="quiz.html">Quiz</a></li>
+          <li><a href="survey.html">Survey</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="jumbotron">
+  <h1>First test example</h1>
+      </div>
+    </div>
+    <a href="https://github.com/igen-ftn/quizgen" target="_blank"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>
+    <!-- Inside the block body is where the views will appears -->
+    <div class="container">
+<!--h2>First test example</h2-->
+<form>
+            <fieldset><legend>Question 1</legend>
+                <dl><dt>2 + 2 is: <br/><br/>
+                            <dd><input type="radio" name="2 + 2 is:" value="5"> 5</dd>
+                            <dd><input type="radio" name="2 + 2 is:" value="6"> 6</dd>
+                            <dd><input type="radio" name="2 + 2 is:" value="9"> 9</dd>
+                            <dd><input type="radio" name="2 + 2 is:" value="4"> 4</dd>
+                </dt></dl>
+            </fieldset>
+            <fieldset><legend>Question 2</legend>
+                <dl><dt>Butterflies are: <br/><br/>
+                            <dd><input type="radio" name="Butterflies are:" value="running"> running</dd>
+                            <dd><input type="radio" name="Butterflies are:" value="flying"> flying</dd>
+                            <dd><input type="radio" name="Butterflies are:" value="swimming"> swimming</dd>
+                            <dd><input type="radio" name="Butterflies are:" value="climbing"> climbing</dd>
+                </dt></dl>
+            </fieldset>
+            <fieldset><legend>Question 3</legend>
+                <dl><dt>Frogs are: <br/><br/>
+                            <dd><input type="checkbox" name="Frogs are:" value="too small"> too small</dd>
+                            <dd><input type="checkbox" name="Frogs are:" value="jumping"> jumping</dd>
+                            <dd><input type="checkbox" name="Frogs are:" value="skiing"> skiing</dd>
+                            <dd><input type="checkbox" name="Frogs are:" value="climbing"> climbing</dd>
+                </dt></dl>
+            </fieldset>
+            <fieldset><legend>Question 4</legend>
+                <dl><dt>What order do the traffic lights go in ? <br/><br/>
+                                <ul>
+                                    <li>RED</li>
+                                    <li>ORANGE</li>
+                                    <li>GREEN</li>
+                                </ul>
+                </dt></dl>
+            </fieldset>
+            <fieldset><legend>Question 5</legend>
+                <dl><dt>Put this days in the correct order: <br/><br/>
+                                <ul>
+                                    <li>MONDAY</li>
+                                    <li>TUESDAY</li>
+                                    <li>WEDNESDAY</li>
+                                    <li>THURSDAY</li>
+                                </ul>
+                </dt></dl>
+            </fieldset>
+            <fieldset><legend>Question 6</legend>
+                <dl><dt>Can you pick the matching countries and capitals? <br/><br/>
+                                <ul style="display: inline-block;">
+                                    <li>SERBIA</li>
+                                    <li>FRANCE</li>
+                                    <li>GERMANY</li>
+                                    <li>PORTUGAL</li>
+                                </ul>
+                                <ul style="display: inline-block;">
+                                    <li>BELGRADE</li>
+                                    <li>PARIS</li>
+                                    <li>BERLIN</li>
+                                    <li>LISBON</li>
+                                </ul>
+                </dt></dl>
+            </fieldset>
+    <input type="Submit" value="Submit">
+</form>
+    </div>
+  </body>
+</html>

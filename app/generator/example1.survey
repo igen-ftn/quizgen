@@ -1,0 +1,15 @@
+Start test
+    "First test example"
+    Start survey
+        Question 1 "2 + 2 is:"
+            Answer "4"
+        Question 2 "Butterflies are:"
+            Answer "a.)" "running"
+            Answer "b.)" "flying"
+            Answer "c.)" "swimming"
+            Answer "d.)" "climbing"
+        Question 3 "Frogs are:"
+            Answer "jumping"
+        button ok "Submit"
+    End survey
+End test

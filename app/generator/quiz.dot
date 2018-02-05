@@ -1,0 +1,80 @@
+
+    digraph xtext {
+    fontname = "Bitstream Vera Sans"
+    fontsize = 8
+    node[
+        shape=record,
+        style=filled,
+        fillcolor=aliceblue
+    ]
+    nodesep = 0.3
+    edge[dir=black,arrowtail=empty]
+
+
+139926685238512[ label="{OrderedAnswer|+order:STRING\l+sortedAnswers:list[STRING]\l}"]
+
+139926685181744[ label="{Matches|+key:STRING\l+value:STRING\l}"]
+
+139926685183760 -> 139926685197376[arrowtail=diamond, dir=both, headlabel="question "]
+139926685183760 -> 139926685228032[arrowtail=diamond, dir=both, headlabel="answers 1..*"]
+139926685183760[ label="{SurveyQuestion|+text:STRING\l}"]
+
+139926685247760[ label="{Button|+name:ID\l+label:STRING\l}"]
+
+139926685207856[ label="{QuizAnswer|+answer:OBJECT\l+isCorrect:Correct\l}"]
+
+139926685197376[ label="{Question|+ordinal:INT\l+text:STRING\l}"]
+
+139926685141056 -> 139926685163584[arrowtail=diamond, dir=both, headlabel="questions 1..*"]
+139926685141056 -> 139926685247760[arrowtail=diamond, dir=both, headlabel="button "]
+139926685141056[ label="{Quiz|}"]
+
+139926685228032[ label="{Answer|+tag:STRING\l+text:STRING\l}"]
+
+139926685152320 -> 139926685183760[arrowtail=diamond, dir=both, headlabel="questions 1..*"]
+139926685152320 -> 139926685247760[arrowtail=diamond, dir=both, headlabel="button "]
+139926685152320[ label="{Survey|}"]
+
+139926685102032 -> 139926679187744[arrowtail=diamond, dir=both, headlabel="type "]
+139926685102032[ label="{Test|+title:STRING\l}"]
+
+139926685174848[ label="{AnswerType|one answer\|multiple answers}"]
+
+139926679187744[ label="{*Type|}"]
+139926679187744 -> 139926685141056 [dir=back]
+139926679187744 -> 139926685152320 [dir=back]
+
+139926685219904[ label="{Correct|+\|-}"]
+
+139926685249776 -> 139926685181744[arrowtail=diamond, dir=both, headlabel="matchedAnswers 1..*"]
+139926685249776[ label="{MatchingAnswer|+matching:STRING\l}"]
+
+139926685163584 -> 139926685197376[arrowtail=diamond, dir=both, headlabel="question "]
+139926685163584 -> 139926685207856[arrowtail=diamond, dir=both, headlabel="answers 1..*"]
+139926685163584[ label="{QuizQuestion|+multipleAnswers:AnswerType\l}"]
+
+139926685132656[ label="{*OBJECT|}"]
+139926685132656 -> 139926685126880 [dir=back]
+
+139926685098000[ label="{STRING|}"]
+
+139926685126880[ label="{BASETYPE|}"]
+139926685126880 -> 139926685120320 [dir=back]
+139926685126880 -> 139926685102992 [dir=back]
+139926685126880 -> 139926683529472 [dir=back]
+139926685126880 -> 139926685098000 [dir=back]
+
+139926685108768[ label="{INT|}"]
+
+139926685114544[ label="{FLOAT|}"]
+
+139926685120320[ label="{NUMBER|}"]
+139926685120320 -> 139926685114544 [dir=back]
+139926685120320 -> 139926685108768 [dir=back]
+
+139926685102992[ label="{BOOL|}"]
+
+139926683529472[ label="{ID|}"]
+
+
+}

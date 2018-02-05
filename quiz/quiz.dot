@@ -11,70 +11,70 @@
     edge[dir=black,arrowtail=empty]
 
 
-2023246167896 -> 2023246152792[arrowtail=diamond, dir=both, headlabel="type "]
-2023246167896[ label="{Test|+title:STRING\l}"]
+30442824[ label="{Matches|+key:STRING\l+value:STRING\l}"]
 
-2023246152792[ label="{*Type|}"]
-2023246152792 -> 2023246144296 [dir=back]
-2023246152792 -> 2023246151848 [dir=back]
+29983272 -> 30681864[arrowtail=diamond, dir=both, headlabel="type "]
+29983272[ label="{Test|+title:STRING\l}"]
 
-2023246144296 -> 2023246172616[arrowtail=diamond, dir=both, headlabel="questions 1..*"]
-2023246144296 -> 2023246156568[arrowtail=diamond, dir=both, headlabel="button "]
-2023246144296[ label="{Quiz|}"]
+30832600[ label="{OrderedAnswer|+order:STRING\l+sortedAnswers:list[STRING]\l}"]
 
-2023246151848 -> 2023246187720[arrowtail=diamond, dir=both, headlabel="questions 1..*"]
-2023246151848 -> 2023246156568[arrowtail=diamond, dir=both, headlabel="button "]
-2023246151848[ label="{Survey|}"]
+30178952[ label="{Button|+name:ID\l+label:STRING\l}"]
 
-2023246172616 -> 2023246179224[arrowtail=diamond, dir=both, headlabel="question "]
-2023246172616 -> 2023246181112[arrowtail=diamond, dir=both, headlabel="answers 1..*"]
-2023246172616[ label="{QuizQuestion|+multipleAnswers:AnswerType\l}"]
+30791464[ label="{Correct|+\|-}"]
 
-2023246177336[ label="{AnswerType|one answer\|multiple answers}"]
+30302664 -> 30767336[arrowtail=diamond, dir=both, headlabel="question "]
+30302664 -> 30785560[arrowtail=diamond, dir=both, headlabel="answers 1..*"]
+30302664[ label="{QuizQuestion|+multipleAnswers:AnswerType\l}"]
 
-2023246187720 -> 2023246179224[arrowtail=diamond, dir=both, headlabel="question "]
-2023246187720 -> 2023246189608[arrowtail=diamond, dir=both, headlabel="answers 1..*"]
-2023246187720[ label="{SurveyQuestion|+text:STRING\l}"]
+30767336[ label="{Question|+ordinal:INT\l+text:STRING\l}"]
 
-2023246179224[ label="{Question|+ordinal:INT\l+text:STRING\l}"]
+30681864[ label="{*Type|}"]
+30681864 -> 30708296 [dir=back]
+30681864 -> 30182424 [dir=back]
 
-2023246181112[ label="{QuizAnswer|+answer:OBJECT\l+isCorrect:Correct\l}"]
+30436920 -> 30442824[arrowtail=diamond, dir=both, headlabel="matchedAnswers 1..*"]
+30436920[ label="{MatchingAnswer|+matching:STRING\l}"]
 
-2023246183944[ label="{Correct|+\|-}"]
+30182424 -> 30449160[arrowtail=diamond, dir=both, headlabel="questions 1..*"]
+30182424 -> 30178952[arrowtail=diamond, dir=both, headlabel="button "]
+30182424[ label="{Survey|}"]
 
-2023246189608[ label="{Answer|+tag:STRING\l+text:STRING\l}"]
+30708296 -> 30302664[arrowtail=diamond, dir=both, headlabel="questions 1..*"]
+30708296 -> 30178952[arrowtail=diamond, dir=both, headlabel="button "]
+30708296[ label="{Quiz|}"]
 
-2023246192440[ label="{OrderedAnswer|+order:STRING\l+sortedAnswers:list[STRING]\l}"]
+30672328[ label="{AnswerType|one answer\|multiple answers}"]
 
-2023246162232 -> 2023246195272[arrowtail=diamond, dir=both, headlabel="matchedAnswers 1..*"]
-2023246162232[ label="{MatchingAnswer|+matching:STRING\l}"]
+30827512[ label="{Answer|+tag:STRING\l+text:STRING\l}"]
 
-2023246195272[ label="{Matches|+key:STRING\l+value:STRING\l}"]
+30785560[ label="{QuizAnswer|+answer:OBJECT\l+isCorrect:Correct\l}"]
 
-2023246156568[ label="{Button|+name:ID\l+label:STRING\l}"]
+30449160 -> 30767336[arrowtail=diamond, dir=both, headlabel="question "]
+30449160 -> 30827512[arrowtail=diamond, dir=both, headlabel="answers 1..*"]
+30449160[ label="{SurveyQuestion|+text:STRING\l}"]
 
-2023246394456[ label="{ID|}"]
+30504872[ label="{INT|}"]
 
-2023246146184[ label="{STRING|}"]
+29866376[ label="{BOOL|}"]
 
-2023246157512[ label="{BOOL|}"]
+30401864[ label="{FLOAT|}"]
 
-2023246147128[ label="{INT|}"]
+30964360[ label="{STRING|}"]
 
-2023246164120[ label="{FLOAT|}"]
+29883800[ label="{ID|}"]
 
-2023246168840[ label="{NUMBER|}"]
-2023246168840 -> 2023246164120 [dir=back]
-2023246168840 -> 2023246147128 [dir=back]
+30821400[ label="{NUMBER|}"]
+30821400 -> 30401864 [dir=back]
+30821400 -> 30504872 [dir=back]
 
-2023246173560[ label="{BASETYPE|}"]
-2023246173560 -> 2023246168840 [dir=back]
-2023246173560 -> 2023246157512 [dir=back]
-2023246173560 -> 2023246394456 [dir=back]
-2023246173560 -> 2023246146184 [dir=back]
+30974744[ label="{BASETYPE|}"]
+30974744 -> 30821400 [dir=back]
+30974744 -> 29866376 [dir=back]
+30974744 -> 29883800 [dir=back]
+30974744 -> 30964360 [dir=back]
 
-2023246166952[ label="{*OBJECT|}"]
-2023246166952 -> 2023246173560 [dir=back]
+29953320[ label="{*OBJECT|}"]
+29953320 -> 30974744 [dir=back]
 
 
 }

@@ -1,0 +1,40 @@
+
+    digraph xtext {
+    fontname = "Bitstream Vera Sans"
+    fontsize = 8
+    node[
+        shape=record,
+        style=filled,
+        fillcolor=aliceblue
+    ]
+    nodesep = 0.3
+    edge[dir=black,arrowtail=empty]
+
+
+139926886689488 -> 139926811577424 [label="type" arrowtail=diamond dir=both]
+139926811577424 -> 139926811576720 [label="questions:0" arrowtail=diamond dir=both]
+139926811576720 -> 139926811576592 [label="question" arrowtail=diamond dir=both]
+139926811576592[label="{:Question|+ordinal:int=1\l+text:unicode='2 + 2 is:'\l}"]
+139926811576720[label="{:SurveyQuestion|+answers:list=[]\l+text:unicode='4'\l}"]
+139926811577424 -> 139926811574352 [label="questions:1" arrowtail=diamond dir=both]
+139926811574352 -> 139926811577232 [label="question" arrowtail=diamond dir=both]
+139926811577232[label="{:Question|+ordinal:int=2\l+text:unicode='Butterflies are:'\l}"]
+139926811574352 -> 139926811574544 [label="answers:0" arrowtail=diamond dir=both]
+139926811574544[label="{:Answer|+tag:unicode='a.)'\l+text:unicode='running'\l}"]
+139926811574352 -> 139926811574608 [label="answers:1" arrowtail=diamond dir=both]
+139926811574608[label="{:Answer|+tag:unicode='b.)'\l+text:unicode='flying'\l}"]
+139926811574352 -> 139926811574928 [label="answers:2" arrowtail=diamond dir=both]
+139926811574928[label="{:Answer|+tag:unicode='c.)'\l+text:unicode='swimming'\l}"]
+139926811574352 -> 139926811574992 [label="answers:3" arrowtail=diamond dir=both]
+139926811574992[label="{:Answer|+tag:unicode='d.)'\l+text:unicode='climbing'\l}"]
+139926811574352[label="{:SurveyQuestion|+text:unicode=''\l}"]
+139926811577424 -> 139926811576144 [label="questions:2" arrowtail=diamond dir=both]
+139926811576144 -> 139926811575952 [label="question" arrowtail=diamond dir=both]
+139926811575952[label="{:Question|+ordinal:int=3\l+text:unicode='Frogs are:'\l}"]
+139926811576144[label="{:SurveyQuestion|+answers:list=[]\l+text:unicode='jumping'\l}"]
+139926811577424 -> 139926811803344 [label="button" arrowtail=diamond dir=both]
+139926811803344[label="{ok:Button|+label:unicode='Submit'\l}"]
+139926811577424[label="{:Survey|}"]
+139926886689488[label="{:Test|+title:unicode='First test example'\l}"]
+
+}

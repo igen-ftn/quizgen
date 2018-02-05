@@ -1,0 +1,84 @@
+Test:
+    "Start" "test"
+    title = STRING
+    type = Type
+    "End" "test"
+;
+
+Type:
+    Quiz | Survey
+;
+
+Quiz:
+    "Start quiz"
+    questions += QuizQuestion
+    button = Button
+    "End quiz"
+;
+
+Survey:
+    "Start survey"
+    questions += SurveyQuestion
+    button = Button
+    "End survey"
+;
+
+QuizQuestion:
+    question = Question
+    multipleAnswers = AnswerType
+    answers += QuizAnswer
+;
+
+AnswerType:
+    'one answer' | 'multiple answers'
+;
+
+SurveyQuestion:
+    question = Question
+    ( (answers += Answer) | ("Answer" text = STRING) )
+;
+
+Question:
+    "Question"
+    ordinal = INT
+    text = STRING
+;
+
+QuizAnswer:
+    (( answer = Answer isCorrect = Correct) | answer = OrderedAnswer | answer = MatchingAnswer)
+;
+
+Correct:
+    '+' | '-'
+;
+
+Answer:
+    "Answer"
+    tag = STRING
+    text = STRING
+;
+
+OrderedAnswer:
+    "Answer"
+    order = "ordered"
+    sortedAnswers += STRING
+;
+
+MatchingAnswer:
+    "Answer"
+    matching = "matching"
+    matchedAnswers += Matches
+;
+
+Matches:
+    key = STRING
+    value = STRING
+    ';'
+;
+
+Button:
+    "button" name = ID label = STRING
+;
+
+
+
