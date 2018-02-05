@@ -13,12 +13,12 @@ def home(request):
 
 
 def generate(template_name, output_name, render_vars):
-    env = Environment(trim_blocks=True, lstrip_blocks=True, loader=PackageLoader("generator", "templates"))
+    env = Environment(trim_blocks=True, lstrip_blocks=True, loader=PackageLoader("app", "generator/templates"))
     template = env.get_template(template_name)
     rendered = template.render(render_vars)
     print(rendered)
     #i pisemo u fajl
-    file_name = os.path.join(root, "templates/output", output_name)
+    file_name = os.path.join(root, "app/templates/output", output_name)
     print(file_name)
     with open(file_name, "w+") as f:
         f.write(rendered)
@@ -26,8 +26,8 @@ def generate(template_name, output_name, render_vars):
 
 def gen(request):
     debug=False
-    model = execute(os.path.join(root, "generator"), 'quiz.tx', 'example.quiz', debug, debug)
-    modelsurvey = execute(os.path.join(root, "generator"), 'quiz.tx', 'example1.survey', debug, debug)
+    model = execute(os.path.join(root, "app/generator"), 'quiz.tx', 'example.quiz', debug, debug)
+    modelsurvey = execute(os.path.join(root, "app/generator"), 'quiz.tx', 'example1.survey', debug, debug)
 
     generate("test_template.html", "quiz.html", {"page": model})
     generate("survey_template.html", "survey.html", {"page": modelsurvey})
