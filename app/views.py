@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from jinja2.environment import Environment
 from jinja2.loaders import PackageLoader
-from execute.execute import execute
-from root import root
+from .execute.execute import execute
+from .root import root
 import os
 
 # Create your views here.
@@ -26,7 +26,7 @@ def generate(template_name, output_name, render_vars):
 # TODO: napraviti da u request-u se prosledi koji tmplate (quiz ili survey), verovatno neki naziv path itd
 def gen(request):
     debug=False
-    #TODO: smanjiti da bude samo jedan model i jedan generator koji ce dobijati parametre na osnovu kojih ce raditi mesto hardcodovanja
+    # TODO: smanjiti da bude samo jedan model i jedan generator koji ce dobijati parametre na osnovu kojih ce raditi mesto hardcodovanja
     model = execute(os.path.join(root, "generator"), 'quiz.tx', 'example.quiz', debug, debug)
     modelsurvey = execute(os.path.join(root, "generator"), 'quiz.tx', 'example1.survey', debug, debug)
 
