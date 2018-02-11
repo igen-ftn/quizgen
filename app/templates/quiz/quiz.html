@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <h1>Quizzes</h1>
+
+    {% for quiz in quizzes %}
+        <label>Title: <span>{{ quiz.title }}</span></label>
+    {% endfor %}
+
+{% endblock %}
