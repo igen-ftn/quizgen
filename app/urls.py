@@ -7,4 +7,6 @@ from django.conf.urls.static import static
 urlpatterns = [
     url(r'^$', views.home, name='home'),
     url(r'^gen/$', views.gen, name='gen'),
+    url(r'^quiz/$', views.quiz, name='quiz'),
+    url(r'^survey/$', views.survey, name='survey')
 ]

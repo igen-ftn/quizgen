@@ -3,6 +3,7 @@ from jinja2.environment import Environment
 from jinja2.loaders import PackageLoader
 from .execute.execute import execute
 from .root import root
+from .models import *
 import os
 
 # Create your views here.
@@ -30,9 +31,24 @@ def gen(request):
     model = execute(os.path.join(root, "generator"), 'quiz.tx', 'example.quiz', debug, debug)
     modelsurvey = execute(os.path.join(root, "generator"), 'quiz.tx', 'example1.survey', debug, debug)
 
-    generate("test_template.html", "quiz.html", {"page": model})
+    generate("test_template.html", "survey.html", {"page": model})
     generate("survey_template.html", "survey.html", {"page": modelsurvey})
     # TODO: promeniti tako da ne dira base vec samo da modifikuje likove za ponudjene quiz i survey
     generate("home_template.html", "index.html", {"page": model})
 
     return render(request, 'quizgen/home.html', {'data':'Success!', 'model':model, 'modelsurvey':modelsurvey})
+
+
+def quiz(request):
+    new_quiz = GrammarExample(title="Quiz1", type="Q", file_path="")
+    new_quiz.save()
+    quizzes = GrammarExample.objects.filter(type="Q").all()
+
+    return render(request, 'quiz/quiz.html', {'quizzes': quizzes})
+
+
+def survey(request):
+    surveys = GrammarExample.objects.filter(type="S").all()
+
+    return render(request, 'survey/survey.html', {'surveys': surveys})
+
