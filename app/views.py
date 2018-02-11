@@ -12,6 +12,10 @@ def home(request):
     return render(request, 'quizgen/home.html')
 
 
+def new(request):
+    return render(request, 'quizgen/grammarInput.html')
+
+
 def generate(template_name, output_name, render_vars):
     env = Environment(trim_blocks=True, lstrip_blocks=True, loader=PackageLoader("app", "generator/templates"))
     template = env.get_template(template_name)
