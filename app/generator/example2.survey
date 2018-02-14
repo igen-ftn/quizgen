@@ -1,0 +1,46 @@
+Start test
+    "Second test example"
+    Start survey
+        Question 1 "2 + 2 is:"
+            multiple choice
+            one answer
+            Answer "1." "4"
+            Answer "2." "1"
+            Answer "3." "25"
+        Question 2 "What colors do you like:"
+            multiple choice
+            multiple answers
+            Answer "1." "Blue"
+            Answer "2." "Red"
+            Answer "3." "Green"
+            Answer "4." "Purple"
+            Answer "5." "Yellow"
+        Question 3 "Please rate this website:"
+            Likert
+            Answer 1 "Strongly disagree"
+            Answer 2 "Disagree"
+            Answer 3 "Neutral"
+            Answer 4 "Agree"
+            Answer 5 "Strongly Agree"
+            Statement "This website has a user friendly interface"
+            Statement "This website is easy to navigate"
+            radio group
+        Question 4 "How would you describe yourself:"
+            Semantic dif
+            Answer left "Calm" -5
+            Answer right "Nervous" 5
+            Answer left "Boring" -5
+            Answer right "Interesting" 5
+            slider
+        Question 5 "Please rank these brands (1 - best)"
+            Rank order
+            Answer "BMW"
+            Answer "Mercedes"
+            Answer "Fiat"
+            Answer "Peugeot"
+        Question 6 "Leave your comment"
+            Open ended
+            text area
+        button ok "Submit"
+    End survey
+End test

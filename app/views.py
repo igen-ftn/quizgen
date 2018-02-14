@@ -33,10 +33,11 @@ def gen(request):
     debug=False
     # TODO: smanjiti da bude samo jedan model i jedan generator koji ce dobijati parametre na osnovu kojih ce raditi mesto hardcodovanja
     model = execute(os.path.join(root, "generator"), 'quiz.tx', 'example.quiz', debug, debug)
-    modelsurvey = execute(os.path.join(root, "generator"), 'quiz.tx', 'example1.survey', debug, debug)
-
+    modelsurvey1 = execute(os.path.join(root, "generator"), 'quiz.tx', 'example1.survey', debug, debug)
+    modelsurvey = execute(os.path.join(root, "generator"), 'quiz.tx', 'example2.survey', debug, debug)
     generate("test_template.html", "survey.html", {"page": model})
     generate("survey_template.html", "survey.html", {"page": modelsurvey})
+    generate("survey_template.html", "survey1.html", {"page": modelsurvey1})
     # TODO: promeniti tako da ne dira base vec samo da modifikuje likove za ponudjene quiz i survey
     generate("home_template.html", "index.html", {"page": model})
 
