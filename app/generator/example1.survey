@@ -2,14 +2,17 @@ Start test
     "First test example"
     Start survey
         Question 1 "2 + 2 is:"
-            Answer "4"
+            multiple choice
+            one answer
+            Answer "1." "4"
+            Answer "2." "5"
         Question 2 "Butterflies are:"
+            multiple choice
+            multiple answers
             Answer "a.)" "running"
             Answer "b.)" "flying"
             Answer "c.)" "swimming"
             Answer "d.)" "climbing"
-        Question 3 "Frogs are:"
-            Answer "jumping"
         button ok "Submit"
     End survey
 End test

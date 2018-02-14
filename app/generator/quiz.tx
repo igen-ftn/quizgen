@@ -16,13 +16,6 @@ Quiz:
     "End quiz"
 ;
 
-Survey:
-    "Start survey"
-    questions += SurveyQuestion
-    button = Button
-    "End survey"
-;
-
 QuizQuestion:
     question = Question
     multipleAnswers = AnswerType
@@ -31,17 +24,6 @@ QuizQuestion:
 
 AnswerType:
     'one answer' | 'multiple answers'
-;
-
-SurveyQuestion:
-    question = Question
-    ( (answers += Answer) | ("Answer" text = STRING) )
-;
-
-Question:
-    "Question"
-    ordinal = INT
-    text = STRING
 ;
 
 QuizAnswer:
@@ -57,6 +39,7 @@ Answer:
     tag = STRING
     text = STRING
 ;
+
 
 OrderedAnswer:
     "Answer"
@@ -80,5 +63,86 @@ Button:
     "button" name = ID label = STRING
 ;
 
+Survey:
+    "Start survey"
+    questions += SurveyQuestion
+    button = Button
+    "End survey"
+;
 
+SurveyQuestion:
+    question = Question
+    questionType = QuestionType
+;
 
+Question:
+    "Question"
+    ordinal = INT
+    text = STRING
+;
+
+QuestionType:
+    MultipleChoice | LikertType | SemanticDifferential | RankOrder | OpenEnded
+;
+
+MultipleChoice:
+    'multiple choice'
+    answerType = AnswerType
+    answers += Answer
+;
+
+LikertType:
+    'Likert'
+    answers += LikertAnswer
+    statements += LikertStatement
+    presentationType = PresentationType
+;
+
+LikertAnswer:
+    'Answer'
+    number = INT
+    description = STRING
+;
+
+LikertStatement:
+    'Statement'
+    text = STRING
+;
+
+SemanticDifferential:
+    'Semantic dif'
+    answers += SemanticDifAnswer
+    presentationType = PresentationType
+;
+
+PresentationType:
+    'slider' | 'radio group'
+;
+
+SemanticDifAnswer:
+    'Answer left'
+    leftSideAnswer = STRING
+    leftValue = INT
+    'Answer right'
+    rightSideAnswer = STRING
+    rightValue = INT
+;
+
+RankOrder:
+    'Rank order'
+    answers += AnswerRank
+;
+
+AnswerRank:
+    'Answer'
+    text = STRING
+;
+
+OpenEnded:
+    'Open ended'
+    presentationType = PresentationTypeOpen
+;
+
+PresentationTypeOpen:
+    'text area' | 'input'
+;
