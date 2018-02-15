@@ -7,15 +7,17 @@
 {% block body %}
     <br /><br />
     {% for quiz in quizzes %}
-        <div class="test_block">
-            <label>{{ quiz.title }}</label>
-            <div class="start_div">
-                <button class="btn btn-success btn-circle" type="button" >
-                    <span class="glyphicon glyphicon-play-circle"></span>
-                    Start test
-                </button>
+        <form action="{% url 'quiz' quiz.id %}">
+            <div class="test_block">
+                <label>{{ quiz.title }}</label>
+                <div class="start_div">
+                    <button class="btn btn-success btn-circle" type="submit" >
+                        <span class="glyphicon glyphicon-play-circle"></span>
+                        Start test
+                    </button>
+                </div>
             </div>
-        </div>
+        </form>
     {% endfor %}
 
 {% endblock %}
