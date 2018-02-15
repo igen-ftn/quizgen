@@ -1,10 +1,8 @@
-var answerNum = 3;
-var questionNum = 1;
 
 function previewQuiz() {
 
         $('#previewDiv').empty();
-        questionNum = $("#questionDiv").children().length;
+        var questionNum = $("#questionDiv").children().length;
 
         var grammar ="<br/><p>Start test</p>"
          + "<p>" + "&nbsp;".repeat(4) + "\"" + $('#title').val() + "\"" +"</p>"
@@ -12,22 +10,29 @@ function previewQuiz() {
 
          for (i = 1; i <= questionNum; i++) {
              var answerNum = $("#answersDiv" + i).children().length;
-             grammar += "<p>" + "&nbsp;".repeat(8) + $('#question' + i).val() +"</p>";
-             for (j = 1; j <= answerNum; j++) {
-                var answer = $('#q' + i + 'answer' + j).val();
-                grammar += "<p>" + "&nbsp;".repeat(16) + answer;
-                if (document.getElementById("q" + i + "ans" + j).checked){
-                    grammar += " +";
+             if($('#question' + i).val() != ''){
+                 grammar += "<p>" + "&nbsp;".repeat(8) + $('#question' + i).val() +"</p>";
+                 for (j = 1; j <= answerNum; j++) {
+                    var answer = $('#q' + i + 'answer' + j).val();
+                    if(answer != ''){
+                        grammar += "<p>" + "&nbsp;".repeat(16) + answer;
+                        var words = answer.split(' ');
+                        if (words[1] != 'ordered' && words[1] != 'matching'){
+                            if (document.getElementById("q" + i + "ans" + j).checked){
+                                grammar += " +";
+                            }
+                            else{
+                                grammar += " -";
+                            }
+                        }
+                        grammar += "</p>";
+                    }
                 }
-                else{
-                    grammar += " -";
-                }
-                grammar += "</p>";
-            }
+             }
          }
          grammar += "<p>" + "&nbsp;".repeat(8) + "button ok \"Submit\"" +"</p>"
          + "<p>" + "&nbsp;".repeat(4) + "End quiz" +"</p>"
-         + "<p>End test</p>";
+         + "<p>&nbsp;End test</p>";                                                  //Obrisati nbsp i zameniti sve <p> sa new line
 
         $('#previewDiv').append(grammar);
 
@@ -43,7 +48,7 @@ function addAnswer(questionNum) {
         var newAnswer = "<div class=\"form-group\">" +
                     "<label class=\"col-sm-2 control-label\" style=\"text-align:left; width:100px;\">Answer:</label>" +
                     "<div class=\"col-sm-8 form-inline\">" +
-                      "<input type=\"text\" id=\"q" + questionNum + "answer" + answerNum +"\" class=\"form-control\" style=\"width:70%\" value=\"Answer <&quot + tag + &quot> <&quot + text + &quot>\">" +
+                      "<input type=\"text\" id=\"q" + questionNum + "answer" + answerNum +"\" class=\"form-control\" style=\"width:70%\" placeholder=\"Answer <&quot + tag + &quot>/<'ordered'>/<'matching'> <&quot + text + &quot>\">" +
                         "<div class=\"checkbox checkbox-circle\" style=\"margin-left:43px;\">" +
                             "<input id=\"q" + questionNum + "ans" + answerNum + "\" type=\"checkbox\">" +
                             "<label for=\"q" + questionNum + "ans" + answerNum + "\">" +
@@ -58,12 +63,12 @@ function addAnswer(questionNum) {
 
 function addQuestion() {
 
-        questionNum = $("#questionDiv").children().length + 1;
+        var questionNum = $("#questionDiv").children().length + 1;
 
         var newQuestion = "<div><div class=\"form-group\">" +
                     "<label class=\"col-sm-2 control-label\" style=\"text-align:left; width:100px;\">Question:</label>" +
                     "<div class=\"col-sm-8\">" +
-                        "<textarea  class=\"form-control\" id=\"question" + questionNum + "\" rows=\"5\" style=\"width:88%; resize:none;\">Question &lt;order&gt; &lt;\" + text + \"&gt; &lt;'one answer'/'multiple answers'&gt;</textarea>" +
+                        "<textarea  class=\"form-control\" id=\"question" + questionNum + "\" rows=\"5\" style=\"width:88%; resize:none;\" placeholder=\"Question &lt;order&gt; &lt;&quot; + text + &quot;&gt; &lt;'one answer'/'multiple answers'&gt;\"></textarea>" +
                     "</div>" +
                 "</div>" +
                 "<div class=\"form-group\">" +
@@ -75,7 +80,7 @@ function addQuestion() {
                     "<div class=\"form-group\">" +
                         "<label class=\"col-sm-2 control-label\" style=\"text-align:left; width:100px;\">Answer:</label>" +
                         "<div class=\"col-sm-8 form-inline\">" +
-                          "<input type=\"text\" class=\"form-control\" id=\"q" + questionNum + "answer1\" style=\"width:70%\" value=\"Answer <&quot + tag + &quot> <&quot + text + &quot>\">" +
+                          "<input type=\"text\" class=\"form-control\" id=\"q" + questionNum + "answer1\" style=\"width:70%\" placeholder=\"Answer <&quot + tag + &quot>/<'ordered'>/<'matching'> <&quot + text + &quot>\">" +
                             "<div class=\"checkbox checkbox-circle\" style=\"margin-left:43px;\">" +
                                 "<input id=\"q" + questionNum + "ans1\" type=\"checkbox\">" +
                                 "<label for=\"q" + questionNum + "ans1\">" +
@@ -86,19 +91,31 @@ function addQuestion() {
                             "<button type=\"button\" class=\"btn btn-success btn-circle\" onclick=\"addAnswer(" + questionNum + ")\"><span class=\"glyphicon glyphicon-plus-sign\"></span>  Add Answer</button>" +
                         "</div>" +
                     "</div>" +
-                    "<div class=\"form-group\">" +
-                        "<label class=\"col-sm-2 control-label\" style=\"text-align:left; width:100px;\">Answer:</label>" +
-                        "<div class=\"col-sm-8 form-inline\">" +
-                            "<input type=\"text\"  class=\"form-control\" id=\"q" + questionNum + "answer2\" style=\"width:70%\" value=\"Answer <&quot + tag + &quot> <&quot + text + &quot>\">" +
-                            "<div class=\"checkbox checkbox-circle\" style=\"margin-left:43px;\">" +
-                                "<input id=\"q" + questionNum + "ans2\" type=\"checkbox\">" +
-                                "<label for=\"q" + questionNum + "ans2\">" +
-                                "</label>" +
-                            "</div>" +
-                        "</div>" +
-                    "</div>" +
                 "</div><br/></div>";
 
         $('#questionDiv').append(newQuestion);
+
+}
+
+function submitQuiz() {
+
+        previewQuiz();
+        var node = document.getElementById('previewDiv')
+        console.log(node.textContent);
+        var url = '/new_quiz/';
+        $.ajax({
+            url: url,
+            data: {
+              'content': node.textContent,
+              'title' : $('#title').val()
+            },
+            dataType: 'json',
+            success: function (data) {
+                alert("OK")
+            },
+            error: function (data) {
+                alert("NOT")
+            }
+        });
 
 }
