@@ -11,8 +11,7 @@ import pydot, os
 def execute(path, grammar_file_name, example_file_name, export_dot, export_png):
     '''U svrhe brzeg testiranja, metoda koja prima putanju do foldera, naziv fajla gde je gramatika i naziv fajla gde je 
         primer programa u nasem jeziku i indikator da li da se eksportuju .dot i .png fajlovi'''
-    
-    
+
     meta_path = os.path.join(path, grammar_file_name)
     meta_name = os.path.splitext(meta_path)[0]
     metamodel = metamodel_from_file(meta_path)
@@ -27,7 +26,7 @@ def execute(path, grammar_file_name, example_file_name, export_dot, export_png):
     model_name = os.path.splitext(model_path)[0]
             
     model = metamodel.model_from_file(model_path)
-    
+
     if export_dot:
         model_export(model, model_name + '.dot')
     if export_png:
@@ -37,4 +36,10 @@ def execute(path, grammar_file_name, example_file_name, export_dot, export_png):
     return model
     
     
-    
+def execute_on_request(path, grammar_file_name, example_str):
+    meta_path = os.path.join(path, grammar_file_name)
+    metamodel = metamodel_from_file(meta_path)
+
+    model = metamodel.model_from_str(example_str)
+
+    return model

@@ -1,7 +1,8 @@
 from django.shortcuts import render
+from django.http import JsonResponse
 from jinja2.environment import Environment
 from jinja2.loaders import PackageLoader
-from .execute.execute import execute
+from .execute.execute import execute, execute_on_request
 from .root import root
 from .models import *
 import os
@@ -28,7 +29,7 @@ def generate(template_name, output_name, render_vars):
     with open(file_name, "w+") as f:
         f.write(rendered)
 
-# TODO: napraviti da u request-u se prosledi koji tmplate (quiz ili survey), verovatno neki naziv path itd
+
 def gen(request):
     debug=False
     # TODO: smanjiti da bude samo jedan model i jedan generator koji ce dobijati parametre na osnovu kojih ce raditi mesto hardcodovanja
@@ -59,21 +60,33 @@ def surveys(request):
 
 
 def new_quiz(request):
-    print('')
+    title = request.REQUEST['title']
+    content = request.REQUEST['content']
+
+    try:
+        model = execute_on_request(os.path.join(root, "generator"), 'quiz.tx', content)
+    except:
+        return JsonResponse({'status': False}, safe=False)
+
+    file_path = create_and_get_file_path(title, content, "q")
+    new_quiz = GrammarExample(title=title, type="Q", file_path=file_path)
+    new_quiz.save()
+
+    return JsonResponse({'status': True}, safe=False)
 
 
 def new_survey(request):
     print('')
 
 
-def create_and_get_file_name(file_name, file_content, type_of_test):
+def create_and_get_file_path(file_name, file_content, type_of_test):
     file_path = None
     if type_of_test is "q":
-        file_path = os.path.join(root, "app_files/quizzes", file_name)
+        file_path = os.path.join(root, "app_files/quizzes", file_name + ".quiz")
         with open(file_path, "w") as f:
             f.write(file_content)
     elif type_of_test is "s":
-        file_path = os.path.join(root, "app_files/surveys", file_name)
+        file_path = os.path.join(root, "app_files/surveys", file_name + ".survey")
         with open(file_path, "w") as f:
             f.write(file_content)
 
