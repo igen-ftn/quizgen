@@ -32,7 +32,7 @@ function previewQuiz() {
          }
          grammar += "<p>" + "&nbsp;".repeat(8) + "button ok \"Submit\"" +"</p>"
          + "<p>" + "&nbsp;".repeat(4) + "End quiz" +"</p>"
-         + "<p>End test</p>";
+         + "<p>&nbsp;End test</p>";                                                  //Obrisati nbsp i zameniti sve <p> sa new line
 
         $('#previewDiv').append(grammar);
 
@@ -94,5 +94,28 @@ function addQuestion() {
                 "</div><br/></div>";
 
         $('#questionDiv').append(newQuestion);
+
+}
+
+function submitQuiz() {
+
+        previewQuiz();
+        var node = document.getElementById('previewDiv')
+        console.log(node.textContent);
+        var url = '/new_quiz/';
+        $.ajax({
+            url: url,
+            data: {
+              'content': node.textContent,
+              'title' : $('#title').val()
+            },
+            dataType: 'json',
+            success: function (data) {
+                alert("OK")
+            },
+            error: function (data) {
+                alert("NOT")
+            }
+        });
 
 }
