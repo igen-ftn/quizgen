@@ -44,16 +44,42 @@ def gen(request):
     return render(request, 'quizgen/home.html', {'data':'Success!', 'model':model, 'modelsurvey':modelsurvey})
 
 
-def quiz(request):
-    new_quiz = GrammarExample(title="Quiz1", type="Q", file_path="")
-    new_quiz.save()
+def quizzes(request):
+    #new_quiz = GrammarExample(title="Quiz1", type="Q", file_path="")
+    #new_quiz.save()
     quizzes = GrammarExample.objects.filter(type="Q").all()
 
     return render(request, 'quiz/quiz.html', {'quizzes': quizzes})
 
 
-def survey(request):
+def surveys(request):
     surveys = GrammarExample.objects.filter(type="S").all()
 
     return render(request, 'survey/survey.html', {'surveys': surveys})
 
+
+def new_quiz(request):
+    print('')
+
+
+def new_survey(request):
+    print('')
+
+
+def create_and_get_file_name(file_name, file_content, type_of_test):
+    file_path = None
+    if type_of_test is "q":
+        file_path = os.path.join(root, "app_files/quizzes", file_name)
+        with open(file_path, "w") as f:
+            f.write(file_content)
+    elif type_of_test is "s":
+        file_path = os.path.join(root, "app_files/surveys", file_name)
+        with open(file_path, "w") as f:
+            f.write(file_content)
+
+    return file_path
+
+
+def get_exapmle_from_file(file_path):
+    with open(file_path) as f:
+        return f.readlines()

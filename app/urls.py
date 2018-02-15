@@ -7,7 +7,9 @@ from django.conf.urls.static import static
 urlpatterns = [
     url(r'^$', views.home, name='home'),
     url(r'^gen/$', views.gen, name='gen'),
-    url(r'^quiz/$', views.quiz, name='quiz'),
-    url(r'^survey/$', views.survey, name='survey'),
+    url(r'^quiz/$', views.quizzes, name='quizzes'),
+    url(r'^survey/$', views.surveys, name='surveys'),
     url(r'^new/$', views.new, name='new'),
+    url(r'^new_quiz/$', views.new_quiz, name='new_quiz'),
+    url(r'^new_survey/$', views.new_survey, name='new_survey'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

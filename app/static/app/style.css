@@ -170,3 +170,18 @@
   border-color: #5cb85c; }
 .radio-success input[type="radio"]:checked + label::after {
   background-color: #5cb85c; }
+
+.test_block {
+    height: 56px;
+    width: 700px;
+    padding: 10px;
+    background-color: #e7e7e7;
+    border: 1px solid #b0b0b0;
+    margin-bottom: 15px;
+}
+.test_block label {
+    margin-top: 7px;
+}
+.start_div {
+    float: right;
+}
