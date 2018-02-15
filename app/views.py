@@ -60,13 +60,13 @@ def surveys(request):
 
 
 def new_quiz(request):
-    title = request.REQUEST['title']
-    content = request.REQUEST['content']
+    title = request.POST['title']
+    content = request.POST['content']
 
     try:
         model = execute_on_request(os.path.join(root, "generator"), 'quiz.tx', content)
-    except:
-        return JsonResponse({'status': False}, safe=False)
+    except Exception as e:
+        return JsonResponse({'status': False, 'message': 'Nije ispostovana gramatika!'}, safe=False)
 
     file_path = create_and_get_file_path(title, content, "q")
     new_quiz = GrammarExample(title=title, type="Q", file_path=file_path)
@@ -76,7 +76,19 @@ def new_quiz(request):
 
 
 def new_survey(request):
-    print('')
+    title = request.POST['title']
+    content = request.POST['content']
+
+    try:
+        model = execute_on_request(os.path.join(root, "generator"), 'quiz.tx', content)
+    except Exception as e:
+        return JsonResponse({'status': False, 'message': 'Nije ispostovana gramatika!'}, safe=False)
+
+    file_path = create_and_get_file_path(title, content, "s")
+    new_survey = GrammarExample(title=title, type="S", file_path=file_path)
+    new_survey.save()
+
+    return JsonResponse({'status': True}, safe=False)
 
 
 def create_and_get_file_path(file_name, file_content, type_of_test):
