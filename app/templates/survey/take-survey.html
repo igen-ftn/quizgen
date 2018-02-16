@@ -5,8 +5,30 @@
 {% endblock %}
 
 {% block body %}
-    <br /><br />
-    {% for survey in surveys %}
-        
+  <br /><br />
+  <form>
+    {% for question in survey.type.questions %}
+    <p>{{question.questionType}}</p>
+      {% if question.questionType %}
+        <fieldset><legend>Question {{question.question.ordinal}}</legend>
+          <dl><dt>{{question.question.text}} <br/><br/>
+
+            {% if question.questionType %}
+              <p>This is MC</p>
+            {% elif question.questionType == 'Likert' %}
+              <p>This is L</p>
+            {% elif question.questionType == 'Semantic dif' %}
+              <p>This is SD</p>
+            {% elif question.questionType == 'Rank order' %}
+              <p>This is RO</p>
+            {% else %}
+              <p>This is N</p>
+            {% endif %}
+
+          </dt></dl>
+        </fieldset>
+      {% endif %}
     {% endfor %}
+    <input type="Submit" value="{{survey.type.button.label}}">
+  </form>
 {% endblock %}

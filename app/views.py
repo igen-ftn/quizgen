@@ -31,19 +31,17 @@ def quizzes(request):
 
     return render(request, 'quiz/quiz.html', {'quizzes': quizzes})
 
-def quiz(request):
-#def quiz(request, quiz_id):
-    #quiz = GrammarExample.objects.filter(pk=quiz_id).first()
-    quiz = "foobar"
+
+def quiz(request, quiz_id):
+    quiz = GrammarExample.objects.filter(pk=quiz_id).first()
+
     if quiz is not None:
-        print("I AM INSIDE")
-        #model = execute(os.path.join(root, "generator/quiz.tx"),
-        #                os.path.join(root, "app_files/quizzes/" + quiz.title + ".quiz"), False, False)
-        #html = generate("test_template.html", {"page": model})
         model = execute(os.path.join(root, "generator/quiz.tx"),
-                        os.path.join(root, "app_files/quizzes/ZaMilionDolara.quiz"), False, False)
+                        os.path.join(root, "app_files/quizzes/" + quiz.title + ".quiz"), False, False)
+        #html = generate("test_template.html", {"page": model})
+
         #return HttpResponse(html)
-        print(model)
+
         return render(request, 'quiz/take-quiz.html', {'quiz': model})
 
     return redirect('/quiz')
@@ -54,6 +52,22 @@ def surveys(request):
     surveys = GrammarExample.objects.filter(type="S").all()
 
     return render(request, 'survey/survey.html', {'surveys': surveys})
+
+def survey(request):
+#def survey(request, survey_id):
+    #survey = GrammarExample.objects.filter(pk=survey_id).first()
+    survey = "asdsda"
+    if survey is not None:
+        model = execute(os.path.join(root, "generator/quiz.tx"),
+                        os.path.join(root, "generator/example2.survey"), False, False)
+                        #os.path.join(root, "app_files/surveys/" + survey.title + ".survey"), False, False)
+        #html = generate("take-survey.html", {"survey": model})
+
+        #return HttpResponse(html)
+
+        return render(request, 'survey/take-survey.html', {'survey': model})
+
+    return redirect('/survey')
 
 
 def new_quiz(request):

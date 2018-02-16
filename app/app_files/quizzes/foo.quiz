@@ -1,0 +1,1 @@
+Start test "foo" Start quiz Question 1 "was is das" one answer Answer "a.)" "5" - Answer "b.)" "6" + Question 2 "Frogs are:" multiple answers Answer "a.)" "too small" + Answer "b.)" "jumping" + Answer "c.)" "skiing" - Answer "d.)" "climbing" - button ok "Submit" End quiz End test
