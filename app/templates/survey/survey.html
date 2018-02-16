@@ -7,14 +7,16 @@
 {% block body %}
     <br /><br />
     {% for survey in surveys %}
-        <div class="test_block">
-            <label>{{ survey.title }}</label>
-            <div class="start_div">
-                <button class="btn btn-success btn-circle" type="button" >
-                    <span class="glyphicon glyphicon-play-circle"></span>
-                    Start test
-                </button>
+        <form action="{% url 'survey' survey.id %}">
+            <div class="test_block">
+                <label>{{ survey.title }}</label>
+                <div class="start_div">
+                    <button class="btn btn-success btn-circle" type="submit" >
+                        <span class="glyphicon glyphicon-play-circle"></span>
+                        Start test
+                    </button>
+                </div>
             </div>
-        </div>
+        </form>
     {% endfor %}
 {% endblock %}

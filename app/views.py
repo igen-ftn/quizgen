@@ -45,11 +45,23 @@ def quiz(request, quiz_id):
     return redirect('/quiz')
 
 
-
 def surveys(request):
     surveys = GrammarExample.objects.filter(type="S").all()
 
     return render(request, 'survey/survey.html', {'surveys': surveys})
+
+
+def survey(request, survey_id):
+    survey = GrammarExample.objects.filter(pk=survey_id).first()
+
+    if survey is not None:
+        model = execute(os.path.join(root, "generator/quiz.tx"),
+                        os.path.join(root, "app_files/surveys/" + survey.title + ".survey"), False, False)
+        html = generate("survey_template.html", {"page": model})
+
+        return HttpResponse(html)
+
+    return redirect('/survey')
 
 
 def new_quiz(request):
@@ -61,7 +73,11 @@ def new_quiz(request):
     except Exception as e:
         return JsonResponse({'status': False, 'message': 'Nije ispostovana gramatika!'}, safe=False)
 
-    file_path = create_and_get_file_path(title, content, "q")
+    success, file_path = create_and_get_file_path(title, content, "q")
+
+    if not success:
+        return JsonResponse({'status': False, 'message': 'Ime kviza vec postoji!'}, safe=False)
+
     new_quiz = GrammarExample(title=title, type="Q", file_path=file_path)
     new_quiz.save()
 
@@ -77,7 +93,11 @@ def new_survey(request):
     except Exception as e:
         return JsonResponse({'status': False, 'message': 'Nije ispostovana gramatika!'}, safe=False)
 
-    file_path = create_and_get_file_path(title, content, "s")
+    success, file_path = create_and_get_file_path(title, content, "s")
+
+    if not success:
+        return JsonResponse({'status': False, 'message': 'Ime ankete vec postoji!'}, safe=False)
+
     new_survey = GrammarExample(title=title, type="S", file_path=file_path)
     new_survey.save()
 
@@ -86,16 +106,20 @@ def new_survey(request):
 
 def create_and_get_file_path(file_name, file_content, type_of_test):
     file_path = None
+
     if type_of_test is "q":
         file_path = os.path.join(root, "app_files/quizzes", file_name + ".quiz")
-        with open(file_path, "w") as f:
-            f.write(file_content)
     elif type_of_test is "s":
         file_path = os.path.join(root, "app_files/surveys", file_name + ".survey")
-        with open(file_path, "w") as f:
-            f.write(file_content)
 
-    return file_path
+    if file_path is not None:
+        if os.path.exists(file_path):
+            return False, file_path
+        else:
+            with open(file_path, "w") as f:
+                f.write(file_content)
+
+    return True, file_path
 
 
 def get_exapmle_from_file(file_path):
