@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block jumbo %}
+    <h2>Quiz</h2>
+{% endblock %}
+
+{% block body %}
+    <br /><br />
+    <form>
+        {% for question in quiz.type.questions %}
+            {% if question.multipleAnswers %}
+                <fieldset><legend>Question {{question.question.ordinal}}</legend>
+                    <dl><dt>{{question.question.text}} <br/><br/>
+                        {% if question.multipleAnswers == 'one answer' %}
+                            {% for answer in question.answers %}
+                                {% if answer.answer.order %}
+                                    <ul>
+                                    {% for orderedAnswer in answer.answer.sortedAnswers  %}
+                                        <li>{{orderedAnswer}}</li>
+                                    {% endfor %}
+                                    </ul>
+                                {% elif answer.answer.matching %}
+                                    <ul style="display: inline-block;">
+                                    {% for matchedAnswers in answer.answer.matchedAnswers  %}
+                                        <li>{{matchedAnswers.key}}</li>
+                                    {% endfor %}
+                                    </ul>
+                                    <ul style="display: inline-block;">
+                                    {% for matchedAnswers in answer.answer.matchedAnswers  %}
+                                        <li>{{matchedAnswers.value}}</li>
+                                    {% endfor %}
+                                    </ul>
+                                {% else %}
+                                <dd><input type="radio" name="{{question.question.text}}" value="{{answer.answer.text}}"> {{answer.answer.text}}</dd>
+                                {% endif %}
+                            {% endfor %}
+                        {% else %}
+                            {% for answer in question.answers %}
+                                <dd><input type="checkbox" name="{{question.question.text}}" value="{{answer.answer.text}}"> {{answer.answer.text}}</dd>
+                            {% endfor %}
+                        {% endif %}
+                    </dt></dl>
+                </fieldset>
+            {% endif %}
+        {% endfor %}
+        <input type="Submit" value="{{page.type.button.label}}">
+    </form>
+
+{% endblock %}

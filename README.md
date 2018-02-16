@@ -8,23 +8,12 @@ TextX
 Jinja2  
 Pydot (download https://github.com/nlhepler/pydot , python setup.py install)  
 Graphviz (if pip install doesn't work, try adding sudo, if it fails, sudo apt-get install graphviz, for windows: add to path variable)  
+Django
 
-# run the application
-
-for pycharm, add new python configuration and for a script file choose generator.py and run it
-
-
-# run the simple server
-
-
-Move into output directory and run the following command:
-```
-python server.py
-```
-
-## Django
+# Run The App With Django
 
 ```
 ./manage.py runserver
+./manage.py makemigrations
 ./manage.py migrate
 ```

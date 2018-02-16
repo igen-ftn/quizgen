@@ -8,6 +8,7 @@ urlpatterns = [
     url(r'^$', views.home, name='home'),
     url(r'^quiz/$', views.quizzes, name='quizzes'),
     url(r'^quiz/(?P<quiz_id>\d+)/$', views.quiz, name='quiz'),
+    url(r'^quiz/test/$', views.quiz, name='quiztest'),
     url(r'^survey/$', views.surveys, name='surveys'),
     url(r'^new/$', views.new, name='new'),
     url(r'^new_quiz/$', views.new_quiz, name='new_quiz'),

@@ -31,16 +31,20 @@ def quizzes(request):
 
     return render(request, 'quiz/quiz.html', {'quizzes': quizzes})
 
-
-def quiz(request, quiz_id):
-    quiz = GrammarExample.objects.filter(pk=quiz_id).first()
-
+def quiz(request):
+#def quiz(request, quiz_id):
+    #quiz = GrammarExample.objects.filter(pk=quiz_id).first()
+    quiz = "foobar"
     if quiz is not None:
+        print("I AM INSIDE")
+        #model = execute(os.path.join(root, "generator/quiz.tx"),
+        #                os.path.join(root, "app_files/quizzes/" + quiz.title + ".quiz"), False, False)
+        #html = generate("test_template.html", {"page": model})
         model = execute(os.path.join(root, "generator/quiz.tx"),
-                        os.path.join(root, "app_files/quizzes/" + quiz.title + ".quiz"), False, False)
-        html = generate("test_template.html", {"page": model})
-
-        return HttpResponse(html)
+                        os.path.join(root, "app_files/quizzes/ZaMilionDolara.quiz"), False, False)
+        #return HttpResponse(html)
+        print(model)
+        return render(request, 'quiz/take-quiz.html', {'quiz': model})
 
     return redirect('/quiz')
 
