@@ -113,9 +113,9 @@ function submitQuiz() {
             dataType: 'json',
             success: function (data) {
                 if (data.status)
-                    alert("OK")
+                    window.location.href = '/quiz/';
                 else
-                    alert("NIje oke")
+                    alert(data.message)
             },
             error: function (data) {
                 alert("Error")
