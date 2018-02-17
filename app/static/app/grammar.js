@@ -120,7 +120,6 @@ function submitQuiz() {
 
         previewQuiz();
         var node = document.getElementById('previewDiv')
-        console.log(node.textContent);
         var url = '/new_quiz/';
         var csrftoken = getCookie('csrftoken')
         $.ajaxSetup({
