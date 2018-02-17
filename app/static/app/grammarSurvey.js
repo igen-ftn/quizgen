@@ -38,11 +38,19 @@ function addSurveyAnswer(questionNum) {
 
         var answerNum = $("#answersSurveyDiv" + questionNum).children().length + 1;
 
+        document.getElementById("q" + questionNum + 'type').disabled = true;
+
         if ($("#q" + questionNum + 'type').val() === 'Open Ended'){
+
+            if (!document.getElementById("q" + questionNum + "presentation")){
+                var presentation = "<select id=\"q" + questionNum + "presentation\" class=\"form-control\" style=\"width:30%;margin-left:43px;\">" +
+                                "<option>Text Area</option>" +
+                                "<option>Text Input</option>" +
+                            "</select>";
+                $("#q" + questionNum + "select").append(presentation);
+            }
             return;
         }
-
-        document.getElementById("q" + questionNum + 'type').disabled = true;
 
         var newAnswer = "<div class=\"form-group\">" +
                     "<label class=\"col-sm-2 control-label\" style=\"text-align:left; width:100px;\">Answer:</label>" +
@@ -69,6 +77,14 @@ function addSurveyAnswer(questionNum) {
             var semantic = "<div style=\"display: inline-block;margin-left:43px;\">" +
                                 "<input id=\"q" + questionNum + "semantic" + answerNum + "\" type=\"number\" class=\"form-control\" style=\"width: 80px;\">" +
                             "</div>";
+
+            if (!document.getElementById("q" + questionNum + "presentation")){
+                var presentation = "<select id=\"q" + questionNum + "presentation\" class=\"form-control\" style=\"width:30%;margin-left:43px;\">" +
+                                "<option>Slider</option>" +
+                                "<option>Radio Group</option>" +
+                            "</select>";
+                $("#q" + questionNum + "select").append(presentation);
+            }
 
             document.getElementById('q' + questionNum + "SurveyAnswer" + answerNum).placeholder="Answer <'left'>/<'right'> <\" + text + \">";
             $('#q' + questionNum + "div" + answerNum).append(semantic);
