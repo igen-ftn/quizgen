@@ -17,6 +17,7 @@ Start test
             Answer "5." "Yellow"
         Question 3 "Please rate this website:"
             Likert
+            Likert
             Answer 1 "Strongly disagree"
             Answer 2 "Disagree"
             Answer 3 "Neutral"
@@ -27,6 +28,7 @@ Start test
             radio group
         Question 4 "How would you describe yourself:"
             Semantic dif
+            SemanticDiff
             Answer left "Calm" -5
             Answer right "Nervous" 5
             Answer left "Boring" -5
@@ -34,12 +36,14 @@ Start test
             slider
         Question 5 "Please rank these brands (1 - best)"
             Rank order
+            RankOrder
             Answer "BMW"
             Answer "Mercedes"
             Answer "Fiat"
             Answer "Peugeot"
         Question 6 "Leave your comment"
             Open ended
+            OpenEnded
             text area
         button ok "Submit"
     End survey

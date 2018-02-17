@@ -8,19 +8,67 @@
   <br /><br />
   <form>
     {% for question in survey.type.questions %}
-    <p>{{question.questionType}}</p>
       {% if question.questionType %}
         <fieldset><legend>Question {{question.question.ordinal}}</legend>
           <dl><dt>{{question.question.text}} <br/><br/>
 
-            {% if question.questionType %}
-              <p>This is MC</p>
-            {% elif question.questionType == 'Likert' %}
-              <p>This is L</p>
-            {% elif question.questionType == 'Semantic dif' %}
-              <p>This is SD</p>
-            {% elif question.questionType == 'Rank order' %}
-              <p>This is RO</p>
+            {% if question.questionType.answerType == 'one answer' %}
+              {% for answer in question.questionType.answers %}
+                <dd><input type="radio" name="{{question.question.text}}" value="{{answer.text}}"> {{answer.text}}</dd>
+              {% endfor %}
+            {% elif question.questionType.answerType == 'multiple answers' %}
+              {% for answer in question.questionType.answers %}
+                <dd><input type="checkbox" name="{{question.question.text}}" value="{{answer.text}}"> {{answer.text}}</dd>
+              {% endfor %}
+            {% elif question.questionType.label == 'Likert' %}
+              {% if question.questionType.presentationType == 'slider' %}
+                <input type="range" min="1" max="100" value="50">
+              {% else %}
+                <table style="width:100%">
+                  <tr>
+                    <th></th>
+                    {% for answer in question.questionType.answers %}
+                      <th>{{answer.description}}</th>
+                    {% endfor %}
+                  </tr>
+                  {% for statement in question.questionType.statements %}
+                    <tr>
+                      <td>{{statement.text}}</td>
+                      {% for answer in question.questionType.answers %}
+                        <td><dd><input type="radio" name="{{statement.text}}" value="{{answer.number}}"></dd></td>
+                      {% endfor %}
+                    </tr>
+                  {% endfor %}
+                </table>
+              {% endif %}
+            {% elif question.questionType.label == 'SemanticDiff' %}
+              {% if question.questionType.presentationType == 'slider' %}
+                {% for answer in question.questionType.answers %}
+                  <div class="row">
+                    <div class="col-md-2">
+                      <label>{{answer.leftSideAnswer}}</label>
+                    </div>
+                    <div class="col-md-8">
+                      <input type="range" min="{{answer.leftValue}}" max="{{answer.rightValue}}" name="{{answer.leftSideAnswer}}" value="">
+                    </div>
+                    <div class="col-md-2">
+                      <label>{{answer.rightSideAnswer}}</label>
+                    </div>
+                  </div>
+                {% endfor %}
+              {% else %}
+
+              {% endif%}
+            {% elif question.questionType.label == 'RankOrder' %}
+              {% for answer in question.questionType.answers %}
+                <div class="row"><div class="col-md-4"><label for="">{{answer.text}}</label></div> <div class="col-md-2"><input type="number" name="{{question.question.text}}" value=""> </div></div>
+              {% endfor %}
+            {% elif question.questionType.label == 'OpenEnded' %}
+              {% if question.questionType.presentationType == 'input' %}
+                <input type="text" name="{{question.question.text}}" value="">
+              {% else %}
+                <textarea rows="10" cols="50" name="{{question.question.text}}" class="form-control"></textarea>
+              {% endif %}
             {% else %}
               <p>This is N</p>
             {% endif %}
