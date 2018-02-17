@@ -6,7 +6,8 @@
 
 {% block body %}
     <br /><br />
-    <form>
+    <form action="/quiz/" method="POST">
+      {% csrf_token %}
         {% for question in quiz.type.questions %}
             {% if question.multipleAnswers %}
                 <fieldset><legend>Question {{question.question.ordinal}}</legend>
@@ -14,26 +15,29 @@
                         {% if question.multipleAnswers == 'one answer' %}
                             {% for answer in question.answers %}
                                 {% if answer.answer.order %}
+                                    <p>Set numbers so that the order is correct:</p>
                                     <ul>
-                                    {% for orderedAnswer in answer.answer.sortedAnswers  %}
-                                        <li>{{orderedAnswer}}</li>
+                                    {% for orderedAnswer in answer.answer.sortedAnswers %}
+                                        <li> <label for="">{{orderedAnswer}}</label> <input type="number" name="{{orderedAnswer}}" value=""> </li>
                                     {% endfor %}
                                     </ul>
                                 {% elif answer.answer.matching %}
-                                    <ul style="display: inline-block;">
+                                    <ol style="display: inline-block;">
                                     {% for matchedAnswers in answer.answer.matchedAnswers  %}
                                         <li>{{matchedAnswers.key}}</li>
                                     {% endfor %}
-                                    </ul>
+                                  </ol>
                                     <ul style="display: inline-block;">
                                     {% for matchedAnswers in answer.answer.matchedAnswers  %}
-                                        <li>{{matchedAnswers.value}}</li>
+                                        <li>{{matchedAnswers.value}} <input type="number" name="{{orderedAnswer}}" value=""></li>
                                     {% endfor %}
                                     </ul>
                                 {% else %}
                                 <dd><input type="radio" name="{{question.question.text}}" value="{{answer.answer.text}}"> {{answer.answer.text}}</dd>
                                 {% endif %}
                             {% endfor %}
+                        {% elif question.answers.order == 'ordered' %}
+                          <p>OO</p>
                         {% else %}
                             {% for answer in question.answers %}
                                 <dd><input type="checkbox" name="{{question.question.text}}" value="{{answer.answer.text}}"> {{answer.answer.text}}</dd>
@@ -45,5 +49,8 @@
         {% endfor %}
         <input type="Submit" value="{{quiz.type.button.label}}">
     </form>
+    <script type="text/javascript">
+
+    </script>
 
 {% endblock %}
