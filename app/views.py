@@ -88,8 +88,8 @@ def new_quiz(request):
 def new_survey(request):
     title = request.POST['title']
     content = request.POST['content']
-    # title = "Likert survey 2"
-    # content = get_exapmle_from_file(os.path.join(root, "app_files/surveys/Likert survey.survey"))[0]
+    # title = "Survey 3"
+    # content = get_exapmle_from_file(os.path.join(root, "app_files/surveys/Survey 1.survey"))[0]
 
     try:
         model = execute_on_request(os.path.join(root, "generator"), 'quiz.tx', content)
@@ -200,22 +200,55 @@ def submit_survey(request):
         for question in model.type.questions:
             if question.questionType.label == 'multiple choice':
                 if question.questionType.answerType == 'one answer':
-                    print(request.POST[question.question.text])
+                    key = request.POST[question.question.text]
+                    survey_answer = Answer.objects.filter(survey_id=survey_id, key=key).first()
+                    survey_answer.num_of_answers += 1
+                    survey_answer.save()
                 else:
-                    # request.POST.getlist(question.question.text) all answers
-                    print('multiple answers')
+                    answers = request.POST.getlist(question.question.text)
+                    for answer in answers:
+                        survey_answer = Answer.objects.filter(survey_id=survey_id, key=answer).first()
+                        survey_answer.num_of_answers += 1
+                        survey_answer.save()
             elif question.questionType.label == 'Likert':
                 for statement in question.questionType.statements:
-                    print(request.POST[statement.text])
-                # print('Likert')
+                    number = request.POST[statement.text]
+                    answer = get_answer_by_number(question.questionType.answers, int(number))
+                    survey_answer = Answer.objects.filter(survey_id=survey_id, key=statement.text, value=answer).first()
+                    survey_answer.num_of_answers += 1
+                    survey_answer.save()
             elif question.questionType.label == 'Semantic dif':
-                print('Semantic')
+                for answer in question.questionType.answers:
+                    key = answer.leftSideAnswer + " " + str(answer.leftValue) + " " + answer.rightSideAnswer + " " + str(answer.rightValue)
+                    value = request.POST[answer.leftSideAnswer]
+                    survey_answer = Answer.objects.filter(survey_id=survey_id, key=key, value=value).first()
+                    if survey_answer is None:
+                        survey_answer = Answer.objects.create(survey_id=survey_id, key=key, value=value)
+                    survey_answer.num_of_answers += 1
+                    survey_answer.save()
             elif question.questionType.label == 'Rank order':
-                print('Rank')
+                for answer in question.questionType.answers:
+                    survey_answer = Answer.objects.filter(survey_id=survey_id, key=answer.text).first()
+                    if survey_answer.value == 'empty':
+                        survey_answer.value = '0'
+                    survey_answer.value = str(int(survey_answer.value) + int(request.POST[answer.text]))
+                    survey_answer.num_of_answers += 1
+                    survey_answer.save()
             else:
-                print("BLA")
+                text = request.POST[question.question.text]
+                survey_question_answer = Answer.objects.create(survey_id=survey_id, key=text)
+                survey_question = SurveyQuestion.objects.filter(survey_id=survey_id, text=question.question.text).first()
+                survey_question.answers.add(survey_question_answer)
+                survey_question.save()
 
     return redirect('/survey/')
+
+
+def get_answer_by_number(answers, number):
+    for answer in answers:
+        if answer.number == number:
+            return answer.description
+    return None
 
 
 def create_and_fill_object(model, survey_id):
@@ -229,16 +262,16 @@ def create_and_fill_object(model, survey_id):
 
         if question.questionType.label == 'multiple choice':
             for answer in question.questionType.answers:
-                survey_question_answer = Answer.objects.create(key=answer.text)
+                survey_question_answer = Answer.objects.create(survey_id=survey_id, key=answer.text)
                 survey_question_answers.append(survey_question_answer)
         elif question.questionType.label == 'Likert':
             for statement in question.questionType.statements:
                 for answer in question.questionType.answers:
-                    survey_question_answer = Answer.objects.create(key=statement.text, value=answer.description)
+                    survey_question_answer = Answer.objects.create(survey_id=survey_id, key=statement.text, value=answer.description)
                     survey_question_answers.append(survey_question_answer)
         elif question.questionType.label == 'Rank order':
             for answer in question.questionType.answers:
-                survey_question_answer = Answer.objects.create(key=answer.text)
+                survey_question_answer = Answer.objects.create(survey_id=survey_id, key=answer.text)
                 survey_question_answers.append(survey_question_answer)
         else:
             continue

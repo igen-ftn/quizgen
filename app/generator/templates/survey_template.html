@@ -112,7 +112,7 @@
                                     <div class="row">
                                         <div class="col-md-4"><label for="">{{ answer.text }}</label></div>
                                         <div class="col-md-2"><input type="number" min=0
-                                                                     name="{{ question.question.text }}" value=""></div>
+                                                                     name="{{ answer.text }}" value=""></div>
                                     </div>
                                 {% endfor %}
                             {% elif question.questionType.label == 'Open ended' %}

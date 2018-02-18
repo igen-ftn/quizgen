@@ -29,6 +29,7 @@ class QuizStatistic(models.Model):
 
 class Answer(models.Model):
     id = models.AutoField(primary_key=True)
+    survey_id = models.IntegerField()
     key = models.CharField(max_length=500)
     value = models.CharField(max_length=500, default="empty")
     num_of_answers = models.IntegerField(default=0)
