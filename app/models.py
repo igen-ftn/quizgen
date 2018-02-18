@@ -14,6 +14,7 @@ class GrammarExample(models.Model):
 
 class QuizQuestion(models.Model):
     id = models.AutoField(primary_key=True)
+    quiz_id = models.IntegerField()
     text = models.CharField(max_length=200)
     correct_answers = models.IntegerField(default=0)
     incorrect_answers = models.IntegerField(default=0)

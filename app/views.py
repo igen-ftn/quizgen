@@ -125,9 +125,9 @@ def submit_quiz(request):
                         os.path.join(root, "app_files/quizzes/" + quiz.title + ".quiz"), False, False)
 
         for question in model.type.questions:
-            quiz_question = QuizQuestion.objects.filter(text=question.question.text).first()
+            quiz_question = QuizQuestion.objects.filter(quiz_id=quiz_id, text=question.question.text).first()
             if quiz_question is None:
-                quiz_question = QuizQuestion.objects.create(text=question.question.text)
+                quiz_question = QuizQuestion.objects.create(quiz_id=quiz_id, text=question.question.text)
 
             if question.multipleAnswers == 'one answer':
                 correct_answer = get_correct_answer(question.answers)[0]
