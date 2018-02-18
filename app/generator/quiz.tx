@@ -79,17 +79,21 @@ Question:
     text = STRING
 ;
 
+AnswerMultipleType:
+    'one answer' | 'multiple answers'
+;
+
 QuestionType:
     MultipleChoice | LikertType | SemanticDifferential | RankOrder | OpenEnded
 ;
 
 QuestionLabel:
-    'Likert' | 'Semantic dif' | 'Rank order' | 'Open ended'
+    'multiple choice' | 'Likert' | 'Semantic dif' | 'Rank order' | 'Open ended'
 ;
 
 MultipleChoice:
-    'multiple choice'
-    answerType = AnswerType
+    label = QuestionLabel
+    answerType = AnswerMultipleType
     answers += Answer
 ;
 

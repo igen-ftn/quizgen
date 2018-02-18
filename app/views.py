@@ -57,7 +57,7 @@ def survey(request, survey_id):
     if survey is not None:
         model = execute(os.path.join(root, "generator/quiz.tx"),
                         os.path.join(root, "app_files/surveys/" + survey.title + ".survey"), False, False)
-        html = generate("survey_template.html", {"survey": model})
+        html = generate("survey_template.html", {"survey": model, "survey_id": survey_id})
 
         return HttpResponse(html)
 
@@ -178,6 +178,20 @@ def submit_quiz(request):
         quiz_statistic.save()
 
     return redirect('/quiz/')
+
+
+def submit_survey(request):
+    survey_id = request.POST['survey_id']
+    survey = GrammarExample.objects.filter(pk=survey_id).first()
+
+    if survey is not None:
+        model = execute(os.path.join(root, "generator/quiz.tx"),
+                        os.path.join(root, "app_files/surveys/" + survey.title + ".survey"), False, False)
+
+        for question in model.type.questions:
+            print(question.questionType.label)
+
+    return redirect('/survey/')
 
 
 def quiz_statistic(request, quiz_id):
