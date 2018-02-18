@@ -23,11 +23,11 @@ QuizQuestion:
 ;
 
 AnswerType:
-    'one answer' | 'multiple answers'
+    'one answer' | 'multiple answers' | 'ordered' | 'matching'
 ;
 
 QuizAnswer:
-    (( answer = Answer isCorrect = Correct) | answer = OrderedAnswer | answer = MatchingAnswer)
+    (answer = MatchingAnswer | ( answer = Answer isCorrect = Correct) | answer = OrderedAnswer)
 ;
 
 Correct:
@@ -43,13 +43,11 @@ Answer:
 
 OrderedAnswer:
     "Answer"
-    order = "ordered"
     sortedAnswers += STRING
 ;
 
 MatchingAnswer:
     "Answer"
-    matching = "matching"
     matchedAnswers += Matches
 ;
 

@@ -16,8 +16,8 @@ function previewQuiz() {
                     var answer = $('#q' + i + 'answer' + j).val();
                     if(answer != ''){
                         grammar += "<p>" + "&nbsp;".repeat(16) + answer;
-                        var words = answer.split(' ');
-                        if (words[1] != 'ordered' && words[1] != 'matching'){
+                        var words = $('#question' + i).val().split(' ');
+                        if (words[words.length-1] != 'ordered' && words[words.length-1] != 'matching'){
                             if (document.getElementById("q" + i + "ans" + j).checked){
                                 grammar += " +";
                             }
