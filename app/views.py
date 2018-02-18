@@ -110,20 +110,33 @@ def submit_quiz(request):
     quiz = GrammarExample.objects.filter(pk=quiz_id).first()
 
     if quiz is not None:
+        # statistic params
         num_of_correct = 0
-        num_of_incorrect = 0
+
+        # ----------------------------
+        quiz_statistic = QuizStatistic.objects.filter(pk=quiz_id).first()
+        if quiz_statistic is None:
+            quiz_statistic = QuizStatistic.objects.create(quiz_id=quiz_id)
+
+        quiz_statistic.taken_test += 1
+        quiz_questions = []
 
         model = execute(os.path.join(root, "generator/quiz.tx"),
                         os.path.join(root, "app_files/quizzes/" + quiz.title + ".quiz"), False, False)
 
         for question in model.type.questions:
+            quiz_question = QuizQuestion.objects.filter(text=question.question.text).first()
+            if quiz_question is None:
+                quiz_question = QuizQuestion.objects.create(text=question.question.text)
+
             if question.multipleAnswers == 'one answer':
                 correct_answer = get_correct_answer(question.answers)[0]
                 if request.POST[question.question.text] == correct_answer:
+                    quiz_question.correct_answers += 1
                     num_of_correct += 1
                     print("Tacno")
                 else:
-                    num_of_incorrect += 1
+                    quiz_question.incorrect_answers += 1
                     print("Nije")
             elif question.multipleAnswers == 'ordered':
                 order_correct = True
@@ -134,8 +147,11 @@ def submit_quiz(request):
                         break
 
                 if order_correct:
+                    quiz_question.correct_answers += 1
+                    num_of_correct += 1
                     print("TACNO - redosled")
                 else:
+                    quiz_question.incorrect_answers += 1
                     print("Nije - redosled")
             elif question.multipleAnswers == 'matching':
                 matched_correct = True
@@ -146,17 +162,29 @@ def submit_quiz(request):
                         break
 
                 if matched_correct:
+                    quiz_question.correct_answers += 1
+                    num_of_correct += 1
                     print('Tacno - spajanje')
                 else:
+                    quiz_question.incorrect_answers += 1
                     print('NIje - spajanje')
             else:
                 correct_answers = get_correct_answer(question.answers)
                 if request.POST.getlist(question.question.text) == correct_answers:
+                    quiz_question.correct_answers += 1
                     num_of_correct += 1
                     print("TACNOOOO")
                 else:
-                    num_of_incorrect += 1
+                    quiz_question.incorrect_answers += 1
                     print("NONO")
+
+            quiz_question.save()
+            quiz_questions.append(quiz_question)
+
+        # GOTVA FOR PETLJA
+        quiz_statistic.questions.set(quiz_questions)
+        quiz_statistic.correct_answers += num_of_correct
+        quiz_statistic.save()
 
     return redirect('/quiz/')
 
