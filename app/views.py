@@ -88,6 +88,8 @@ def new_quiz(request):
 def new_survey(request):
     title = request.POST['title']
     content = request.POST['content']
+    # title = "Likert survey 2"
+    # content = get_exapmle_from_file(os.path.join(root, "app_files/surveys/Likert survey.survey"))[0]
 
     try:
         model = execute_on_request(os.path.join(root, "generator"), 'quiz.tx', content)
@@ -185,13 +187,70 @@ def submit_survey(request):
     survey = GrammarExample.objects.filter(pk=survey_id).first()
 
     if survey is not None:
+        # ----------------------------
         model = execute(os.path.join(root, "generator/quiz.tx"),
                         os.path.join(root, "app_files/surveys/" + survey.title + ".survey"), False, False)
 
+        survey_statistic = SurveyStatistic.objects.filter(pk=survey_id).first()
+        if survey_statistic is None:
+            survey_statistic = create_and_fill_object(model, survey_id)
+
+        survey_statistic.taken_test += 1
+
         for question in model.type.questions:
-            print(question.questionType.label)
+            if question.questionType.label == 'multiple choice':
+                if question.questionType.answerType == 'one answer':
+                    print(request.POST[question.question.text])
+                else:
+                    # request.POST.getlist(question.question.text) all answers
+                    print('multiple answers')
+            elif question.questionType.label == 'Likert':
+                for statement in question.questionType.statements:
+                    print(request.POST[statement.text])
+                # print('Likert')
+            elif question.questionType.label == 'Semantic dif':
+                print('Semantic')
+            elif question.questionType.label == 'Rank order':
+                print('Rank')
+            else:
+                print("BLA")
 
     return redirect('/survey/')
+
+
+def create_and_fill_object(model, survey_id):
+    survey_statistic = SurveyStatistic.objects.create(survey_id=survey_id)
+
+    survey_questions = []
+
+    for question in model.type.questions:
+        survey_question = SurveyQuestion.objects.create(survey_id=survey_id, text=question.question.text)
+        survey_question_answers = []
+
+        if question.questionType.label == 'multiple choice':
+            for answer in question.questionType.answers:
+                survey_question_answer = Answer.objects.create(key=answer.text)
+                survey_question_answers.append(survey_question_answer)
+        elif question.questionType.label == 'Likert':
+            for statement in question.questionType.statements:
+                for answer in question.questionType.answers:
+                    survey_question_answer = Answer.objects.create(key=statement.text, value=answer.description)
+                    survey_question_answers.append(survey_question_answer)
+        elif question.questionType.label == 'Rank order':
+            for answer in question.questionType.answers:
+                survey_question_answer = Answer.objects.create(key=answer.text)
+                survey_question_answers.append(survey_question_answer)
+        else:
+            continue
+
+        survey_question.answers.set(survey_question_answers)
+        survey_question.save()
+        survey_questions.append(survey_question)
+
+    survey_statistic.questions.set(survey_questions)
+    survey_statistic.save()
+
+    return survey_statistic
 
 
 def quiz_statistic(request, quiz_id):

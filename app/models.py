@@ -26,3 +26,22 @@ class QuizStatistic(models.Model):
     taken_test = models.IntegerField(default=0)
     correct_answers = models.IntegerField(default=0)
 
+
+class Answer(models.Model):
+    id = models.AutoField(primary_key=True)
+    key = models.CharField(max_length=500)
+    value = models.CharField(max_length=500, default="empty")
+    num_of_answers = models.IntegerField(default=0)
+    
+
+class SurveyQuestion(models.Model):
+    id = models.AutoField(primary_key=True)
+    survey_id = models.IntegerField()
+    text = models.CharField(max_length=200)
+    answers = models.ManyToManyField(Answer)
+
+
+class SurveyStatistic(models.Model):
+    survey_id = models.IntegerField(primary_key=True)
+    questions = models.ManyToManyField(SurveyQuestion)
+    taken_test = models.IntegerField(default=0)
