@@ -7,7 +7,7 @@
 {% block body %}
     <br /><br />
     {% for quiz in quizzes %}
-        <form action="{% url 'quiz' quiz.id %}">
+        <form action="{% url 'quiz' quiz.id %}" target="_blank">
             <div class="test_block">
                 <label>{{ quiz.title }}</label>
                 <div class="start_div">

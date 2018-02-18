@@ -13,4 +13,5 @@ urlpatterns = [
     url(r'^new/$', views.new, name='new'),
     url(r'^new_quiz/$', views.new_quiz, name='new_quiz'),
     url(r'^new_survey/$', views.new_survey, name='new_survey'),
+    url(r'^submit_quiz/$', views.submit_quiz, name='submit_quiz')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

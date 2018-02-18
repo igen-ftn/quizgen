@@ -38,7 +38,7 @@ def quiz(request, quiz_id):
     if quiz is not None:
         model = execute(os.path.join(root, "generator/quiz.tx"),
                         os.path.join(root, "app_files/quizzes/" + quiz.title + ".quiz"), False, False)
-        html = generate("test_template.html", {"page": model})
+        html = generate("test_template.html", {"quiz": model, "quiz_id": quiz_id})
 
         return HttpResponse(html)
 
@@ -71,6 +71,7 @@ def new_quiz(request):
     try:
         model = execute_on_request(os.path.join(root, "generator"), 'quiz.tx', content)
     except Exception as e:
+        print(str(e))
         return JsonResponse({'status': False, 'message': 'Nije ispostovana gramatika!'}, safe=False)
 
     success, file_path = create_and_get_file_path(title, content, "q")
@@ -102,6 +103,74 @@ def new_survey(request):
     new_survey.save()
 
     return JsonResponse({'status': True}, safe=False)
+
+
+def submit_quiz(request):
+    quiz_id = request.POST['quiz_id']
+    quiz = GrammarExample.objects.filter(pk=quiz_id).first()
+
+    if quiz is not None:
+        num_of_correct = 0
+        num_of_incorrect = 0
+
+        model = execute(os.path.join(root, "generator/quiz.tx"),
+                        os.path.join(root, "app_files/quizzes/" + quiz.title + ".quiz"), False, False)
+
+        for question in model.type.questions:
+            if question.multipleAnswers == 'one answer':
+                correct_answer = get_correct_answer(question.answers)[0]
+                if request.POST[question.question.text] == correct_answer:
+                    num_of_correct += 1
+                    print("Tacno")
+                else:
+                    num_of_incorrect += 1
+                    print("Nije")
+            elif question.multipleAnswers == 'ordered':
+                order_correct = True
+                correct_order = get_correct_order(question.answers)
+                for i in range(len(correct_order)):
+                    if request.POST[correct_order[i]] != str(i+1):
+                        order_correct = False
+                        break
+
+                if order_correct:
+                    print("TACNO - redosled")
+                else:
+                    print("Nije - redosled")
+            elif question.multipleAnswers == 'matching':
+                matched_correct = True
+                matched_answers = get_matched_answers(question.answers)
+                for i in range(len(matched_answers)):
+                    if request.POST[matched_answers[i].value] != str(i+1):
+                        matched_correct = False
+                        break
+
+                if matched_correct:
+                    print('Tacno - spajanje')
+                else:
+                    print('NIje - spajanje')
+            else:
+                correct_answers = get_correct_answer(question.answers)
+                if request.POST.getlist(question.question.text) == correct_answers:
+                    num_of_correct += 1
+                    print("TACNOOOO")
+                else:
+                    num_of_incorrect += 1
+                    print("NONO")
+
+    return redirect('/quiz/')
+
+
+def get_correct_answer(answers):
+    return [answer.answer.text for answer in answers if answer.isCorrect == '+']
+
+
+def get_correct_order(answers):
+    return answers[0].answer.sortedAnswers
+
+
+def get_matched_answers(answers):
+    return answers[0].answer.matchedAnswers
 
 
 def create_and_get_file_path(file_name, file_content, type_of_test):
