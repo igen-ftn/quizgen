@@ -83,6 +83,10 @@ QuestionType:
     MultipleChoice | LikertType | SemanticDifferential | RankOrder | OpenEnded
 ;
 
+QuestionLabel:
+    'Likert' | 'Semantic dif' | 'Rank order' | 'Open ended'
+;
+
 MultipleChoice:
     'multiple choice'
     answerType = AnswerType
@@ -90,7 +94,7 @@ MultipleChoice:
 ;
 
 LikertType:
-    'Likert'
+    label = QuestionLabel
     answers += LikertAnswer
     statements += LikertStatement
     presentationType = PresentationType
@@ -108,7 +112,7 @@ LikertStatement:
 ;
 
 SemanticDifferential:
-    'Semantic dif'
+    label = QuestionLabel
     answers += SemanticDifAnswer
     presentationType = PresentationType
 ;
@@ -127,7 +131,7 @@ SemanticDifAnswer:
 ;
 
 RankOrder:
-    'Rank order'
+    label = QuestionLabel
     answers += AnswerRank
 ;
 
@@ -137,7 +141,7 @@ AnswerRank:
 ;
 
 OpenEnded:
-    'Open ended'
+    label = QuestionLabel
     presentationType = PresentationTypeOpen
 ;
 

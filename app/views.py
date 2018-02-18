@@ -57,7 +57,7 @@ def survey(request, survey_id):
     if survey is not None:
         model = execute(os.path.join(root, "generator/quiz.tx"),
                         os.path.join(root, "app_files/surveys/" + survey.title + ".survey"), False, False)
-        html = generate("survey_template.html", {"page": model})
+        html = generate("survey_template.html", {"survey": model})
 
         return HttpResponse(html)
 
