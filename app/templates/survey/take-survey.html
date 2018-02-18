@@ -6,7 +6,8 @@
 
 {% block body %}
   <br /><br />
-  <form>
+  <form action="/quiz/" method="POST">
+    {% csrf_token %}
     {% for question in survey.type.questions %}
       {% if question.questionType %}
         <fieldset><legend>Question {{question.question.ordinal}}</legend>
@@ -22,7 +23,21 @@
               {% endfor %}
             {% elif question.questionType.label == 'Likert' %}
               {% if question.questionType.presentationType == 'slider' %}
-                <input type="range" min="1" max="100" value="50">
+                <table style="width:100%">
+                  <tr>
+                    <th></th>
+                    {% for answer in question.questionType.answers %}
+                      <th>{{answer.description}}</th>
+                    {% endfor %}
+                  </tr>
+                  {% for statement in question.questionType.statements %}
+                    <tr>
+                      <td>{{statement.text}}</td>
+                      <td colspan="{{question.questionType.answers|length}}"><dd><input type="range" min="1" max="{{question.questionType.answers|length}}" name="{{statement.text}}" value=""></dd></td>
+                    </tr>
+                  {% endfor %}
+                </table>
+
               {% else %}
                 <table style="width:100%">
                   <tr>
@@ -57,11 +72,29 @@
                   </div>
                 {% endfor %}
               {% else %}
-
+                {% for answer in question.questionType.answers %}
+                  <div class="row">
+                    <div class="col-md-2">
+                      <label>{{answer.leftSideAnswer}}</label>
+                    </div>
+                    <div class="col-md-2">
+                      <input type="radio" name="{{answer.leftSideAnswer}}" value="{{answer.leftValue}}">
+                    </div>
+                    <div class="col-md-2">
+                      <input type="radio" name="{{answer.leftSideAnswer}}" value="0">
+                    </div>
+                    <div class="col-md-2">
+                      <input type="radio" name="{{answer.leftSideAnswer}}" value="{{answer.rightValue}}">
+                    </div>
+                    <div class="col-md-2">
+                      <label>{{answer.rightSideAnswer}}</label>
+                    </div>
+                  </div>
+                {% endfor %}
               {% endif%}
             {% elif question.questionType.label == 'RankOrder' %}
               {% for answer in question.questionType.answers %}
-                <div class="row"><div class="col-md-4"><label for="">{{answer.text}}</label></div> <div class="col-md-2"><input type="number" name="{{question.question.text}}" value=""> </div></div>
+                <div class="row"><div class="col-md-4"><label for="">{{answer.text}}</label></div> <div class="col-md-2"><input type="number" min=0 name="{{question.question.text}}" value=""> </div></div>
               {% endfor %}
             {% elif question.questionType.label == 'OpenEnded' %}
               {% if question.questionType.presentationType == 'input' %}

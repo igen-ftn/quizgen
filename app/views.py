@@ -53,21 +53,28 @@ def surveys(request):
 
     return render(request, 'survey/survey.html', {'surveys': surveys})
 
-def survey(request):
-#def survey(request, survey_id):
-    #survey = GrammarExample.objects.filter(pk=survey_id).first()
-    survey = "asdsda"
+
+def survey(request, survey_id):
+    survey = GrammarExample.objects.filter(pk=survey_id).first()
     if survey is not None:
         model = execute(os.path.join(root, "generator/quiz.tx"),
-                        os.path.join(root, "generator/example2.survey"), False, False)
-                        #os.path.join(root, "app_files/surveys/" + survey.title + ".survey"), False, False)
-        #html = generate("take-survey.html", {"survey": model})
-
-        #return HttpResponse(html)
+                        os.path.join(root, "app_files/surveys/" + survey.title + ".survey"), False, False)
 
         return render(request, 'survey/take-survey.html', {'survey': model})
 
     return redirect('/survey')
+
+
+def test_survey(request):
+    survey = "asdsda"
+    if survey is not None:
+        model = execute(os.path.join(root, "generator/quiz.tx"),
+                        os.path.join(root, "generator/example2.survey"), False, False)
+
+        return render(request, 'survey/take-survey.html', {'survey': model})
+
+    return redirect('/survey')
+
 
 
 def new_quiz(request):
