@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block jumbo %}
+    <h2>Quiz statistic</h2>
+{% endblock %}
+
+{% block body %}
+    <br /><br />
+    <h4>Quiz taken: <b>{{ quiz_statistic.taken_test }} time(s)</b></h4>
+    <h4>Quiz accuracy: <b>{{ accuracy }} %</b></h4>
+    <hr>
+    <h4>Questions:</h4>
+    {% for question in quiz_statistic.questions.all %}
+        <div class="test_block test_block_2">
+            <label>{{ question.text }}</label>
+            <div class="start_div">
+                <button class="btn btn-success btn-circle" type="submit" >
+                    Correct: {{ question.correct_answers }}
+                </button>
+                <button class="btn btn-danger btn-circle" type="submit" >
+                    Incorrect: {{ question.incorrect_answers }}
+                </button>
+                <button class="btn btn-warning btn-circle" type="submit" >
+                    Acc: {% widthratio question.correct_answers quiz_statistic.taken_test 100 %} %
+                </button>
+            </div>
+        </div>
+    {% endfor %}
+
+{% endblock %}

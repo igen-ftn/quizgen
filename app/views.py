@@ -134,10 +134,8 @@ def submit_quiz(request):
                 if request.POST[question.question.text] == correct_answer:
                     quiz_question.correct_answers += 1
                     num_of_correct += 1
-                    print("Tacno")
                 else:
                     quiz_question.incorrect_answers += 1
-                    print("Nije")
             elif question.multipleAnswers == 'ordered':
                 order_correct = True
                 correct_order = get_correct_order(question.answers)
@@ -149,10 +147,8 @@ def submit_quiz(request):
                 if order_correct:
                     quiz_question.correct_answers += 1
                     num_of_correct += 1
-                    print("TACNO - redosled")
                 else:
                     quiz_question.incorrect_answers += 1
-                    print("Nije - redosled")
             elif question.multipleAnswers == 'matching':
                 matched_correct = True
                 matched_answers = get_matched_answers(question.answers)
@@ -164,29 +160,31 @@ def submit_quiz(request):
                 if matched_correct:
                     quiz_question.correct_answers += 1
                     num_of_correct += 1
-                    print('Tacno - spajanje')
                 else:
                     quiz_question.incorrect_answers += 1
-                    print('NIje - spajanje')
             else:
                 correct_answers = get_correct_answer(question.answers)
                 if request.POST.getlist(question.question.text) == correct_answers:
                     quiz_question.correct_answers += 1
                     num_of_correct += 1
-                    print("TACNOOOO")
                 else:
                     quiz_question.incorrect_answers += 1
-                    print("NONO")
 
             quiz_question.save()
             quiz_questions.append(quiz_question)
 
-        # GOTVA FOR PETLJA
         quiz_statistic.questions.set(quiz_questions)
         quiz_statistic.correct_answers += num_of_correct
         quiz_statistic.save()
 
     return redirect('/quiz/')
+
+
+def quiz_statistic(request, quiz_id):
+    quiz_statistic = QuizStatistic.objects.filter(quiz_id=quiz_id).first()
+    accuracy = int((quiz_statistic.correct_answers / (quiz_statistic.taken_test*len(quiz_statistic.questions.all())))*100)
+
+    return render(request, 'statistic/quiz_statistic.html', {'quiz_statistic': quiz_statistic, 'accuracy': accuracy})
 
 
 def get_correct_answer(answers):
