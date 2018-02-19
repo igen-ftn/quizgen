@@ -10,6 +10,17 @@ from .models import *
 import jinja2
 import json
 import os
+import random
+
+def filter_shuffle(seq):
+    try:
+        result = list(seq)
+        random.shuffle(result)
+        return result
+    except:
+        return seq
+
+jinja2.filters.FILTERS['shuffle'] = filter_shuffle
 
 # Create your views here.
 def contains(value, list, question):

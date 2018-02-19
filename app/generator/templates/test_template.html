@@ -15,25 +15,39 @@
                     <dl><dt>{{question.question.text}} <br/><br/>
                         {% for answer in question.answers %}
                             {% if question.multipleAnswers == 'one answer' %}
-                                <dd><input type="radio" name="{{question.question.text}}" value="{{answer.answer.text}}"> {{answer.answer.text}}</dd>
+                                <dd><input type="radio" name="{{question.question.text}}" value="{{answer.answer.text}}" required> {{answer.answer.text}}</dd>
                             {% elif question.multipleAnswers == 'ordered' %}
                                 <p>Set numbers so that the order is correct:</p>
                                 <ul>
-                                    {% for orderedAnswer in answer.answer.sortedAnswers %}
-                                        <li> <label for="">{{orderedAnswer}}</label> <input type="number" name="{{orderedAnswer}}" value=""> </li>
+                                    {% for orderedAnswer in answer.answer.sortedAnswers|shuffle %}
+                                        <div class="row">
+                                            <div class="col-md-4"><label for="">{{orderedAnswer}}</label></div>
+                                            <div class="col-md-2"><input type="number" min=0
+                                                                         name="{{orderedAnswer}}" value="" required></div>
+                                        </div>
                                     {% endfor %}
                                 </ul>
                             {% elif question.multipleAnswers == 'matching' %}
-                                <ol style="display: inline-block;">
-                                    {% for matchedAnswers in answer.answer.matchedAnswers  %}
-                                        <li>{{matchedAnswers.key}}</li>
-                                    {% endfor %}
-                                </ol>
-                                <ul style="display: inline-block;">
-                                    {% for matchedAnswers in answer.answer.matchedAnswers  %}
-                                        <li>{{matchedAnswers.value}} <input type="number" name="{{matchedAnswers.value}}" value=""></li>
-                                    {% endfor %}
-                                </ul>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <ol style="display: inline-block;">
+                                            {% for matchedAnswers in answer.answer.matchedAnswers  %}
+                                                <li>{{matchedAnswers.key}}</li>
+                                            {% endfor %}
+                                        </ol>
+                                    </div>
+                                    <div class="col-md-6">
+                                        {% for matchedAnswers in answer.answer.matchedAnswers|shuffle  %}
+                                            <div class="row">
+                                                <div class="col-md-4"><label for="">{{matchedAnswers.value}}</label></div>
+                                                <div class="col-md-2"><input type="number" min=0
+                                                                             name="{{matchedAnswers.value}}" value="" required></div>
+                                            </div>
+                                            <!--li>{{matchedAnswers.value}} <input type="number" name="{{matchedAnswers.value}}" value="" required></li-->
+                                        {% endfor %}
+                                    </div>
+                                </div>
+
                             {% else %}
                                 <dd><input type="checkbox" name="{{question.question.text}}" value="{{answer.answer.text}}"> {{answer.answer.text}}</dd>
                             {% endif %}
@@ -42,8 +56,12 @@
                 </fieldset>
             {% endif %}
         {% endfor %}
-        <input type="Submit" value="{{quiz.type.button.label}}">
+        <input type="Submit" class="btn btn-primary"  value="{{quiz.type.button.label}}">
     </form>
+    <br>
+    <br>
+    <br>
+    <br>
     <script type="text/javascript">
     </script>
 
