@@ -15,13 +15,28 @@
                         <!--ako je korisnik odgovorio netacno oboji u crveno -->
                             {% if question.multipleAnswers == 'one answer' %}
                                 {% if answer.isCorrect == '+' %}
-                                    {% if user_answers[question.question.text] == answer.answer.text %}
-                                        <dd><button class="btn btn-success  btn-block"> <span class="col-lg-10 col-md-10 col-sm-10">{{answer.answer.text}}</span><span class="badge col-lg-1 col-md-2 col-sm-2 pull-right">Correct answer</span><span class="badge col-lg-1 col-md-2 col-sm-2 pull-right">Your answer</span></button></dd>
+                                    {% if user_answers[question.question.text][0] == answer.answer.text %}
+                                        <dd><button class="btn btn-success  btn-block"> <span class="col-lg-10 col-md-10 col-sm-10">{{answer.answer.text}}</span><span class="badge col-lg-1 col-md-2 col-sm-2 pull-right">Your answer</span></button></dd>
                                     {% else %}
-                                        <dd><button class="btn btn-success  btn-block"> <span class="col-lg-10 col-md-10 col-sm-10">{{answer.answer.text}}</span><span class="badge col-lg-1 col-md-2 col-sm-2 pull-right">Correct answer</span></button></dd>
+                                        <dd><button class="btn btn-warning  btn-block"> <span class="col-lg-10 col-md-10 col-sm-10">{{answer.answer.text}}</span><span class="badge col-lg-1 col-md-2 col-sm-2 pull-right">Correct answer</span></button></dd>
                                     {% endif %}
                                 {% else %}
-                                    {% if user_answers[question.question.text] == answer.answer.text %}
+                                    {% if user_answers[question.question.text][0] == answer.answer.text %}
+                                        <dd><button class="btn btn-danger  btn-block"><span class="col-lg-10 col-md-10 col-sm-10">{{answer.answer.text}}</span> <span class="badge col-lg-1 col-md-2 col-sm-2 pull-right">Your answer</span></button></dd>
+                                    {% else %}
+                                        <dd><button class="btn btn-default  btn-block"> <span class="col-lg-10 col-md-10 col-sm-10">{{answer.answer.text}}</span></button></dd>
+                                    {% endif %}
+                                {% endif %}
+                            {% elif question.multipleAnswers == 'multiple answers' %}
+                                {% if answer.isCorrect == '+' %}
+                                    <!--ako je tacan odgovor proveriti da li ga ima medju korisnikovim odgovorima -->
+                                    {% if  answer.answer.text|contains(user_answers, question.question.text)  %}
+                                        <dd><button class="btn btn-success  btn-block"> <span class="col-lg-10 col-md-10 col-sm-10">{{answer.answer.text}}</span><span class="badge col-lg-1 col-md-2 col-sm-2 pull-right">Your answer</span></button></dd>
+                                    {% else %}
+                                        <dd><button class="btn btn-warning btn-block"> <span class="col-lg-10 col-md-10 col-sm-10">{{answer.answer.text}}</span><span class="badge col-lg-1 col-md-2 col-sm-2 pull-right">Correct answer</span></button></dd>
+                                    {% endif %}
+                                {% else %}
+                                    {% if answer.answer.text|contains(user_answers, question.question.text) %}
                                         <dd><button class="btn btn-danger  btn-block"><span class="col-lg-10 col-md-10 col-sm-10">{{answer.answer.text}}</span> <span class="badge col-lg-1 col-md-2 col-sm-2 pull-right">Your answer</span></button></dd>
                                     {% else %}
                                         <dd><button class="btn btn-default  btn-block"> <span class="col-lg-10 col-md-10 col-sm-10">{{answer.answer.text}}</span></button></dd>

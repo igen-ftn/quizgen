@@ -1,14 +1,30 @@
 from django.shortcuts import render, redirect
 from django.http import JsonResponse, HttpResponse
+from django.utils import six
 from django.views.decorators.csrf import csrf_exempt
 from jinja2.environment import Environment
 from jinja2.loaders import PackageLoader
 from .execute.execute import execute, execute_on_request
 from .root import root
 from .models import *
+import jinja2
+import json
 import os
 
 # Create your views here.
+def contains(value, list, question):
+    print('vrednost' + value)
+    print(list)
+    if value in list[question]:
+        return True
+    else:
+        return False
+
+def add_filters():
+    loader = jinja2.PackageLoader('app', 'generator/templates')
+    env = jinja2.Environment(autoescape=True, loader=loader)
+    env.filters['contains'] = contains
+    jinja2.filters.FILTERS['contains'] = contains
 
 
 def home(request):
@@ -46,8 +62,9 @@ def quiz(request, quiz_id):
     return redirect('/quiz')
 
 def quiz_results(request, quiz_id):
+    add_filters()
     quiz = GrammarExample.objects.filter(pk=quiz_id).first()
-    answers = request.session.get('old_post')
+    answers = request.session['old_post']
     if quiz is not None:
         model = execute(os.path.join(root, "generator/quiz.tx"),
                         os.path.join(root, "app_files/quizzes/" + quiz.title + ".quiz"), False, False)
@@ -119,11 +136,13 @@ def new_survey(request):
 
     return JsonResponse({'status': True}, safe=False)
 
+
+
 @csrf_exempt
 def submit_quiz(request):
     quiz_id = request.POST['quiz_id']
     quiz = GrammarExample.objects.filter(pk=quiz_id).first()
-    print(request.POST)
+    request.session['old_post'] = dict(six.iterlists(request.POST))
     if quiz is not None:
         # statistic params
         num_of_correct = 0
@@ -191,7 +210,7 @@ def submit_quiz(request):
         quiz_statistic.questions.set(quiz_questions)
         quiz_statistic.correct_answers += num_of_correct
         quiz_statistic.save()
-    request.session['old_post'] = request.POST
+
     return redirect('quiz_results', quiz_id)
 
 
