@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import JsonResponse, HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 from jinja2.environment import Environment
 from jinja2.loaders import PackageLoader
 from .execute.execute import execute, execute_on_request
@@ -39,6 +40,18 @@ def quiz(request, quiz_id):
         model = execute(os.path.join(root, "generator/quiz.tx"),
                         os.path.join(root, "app_files/quizzes/" + quiz.title + ".quiz"), False, False)
         html = generate("test_template.html", {"quiz": model, "quiz_id": quiz_id})
+
+        return HttpResponse(html)
+
+    return redirect('/quiz')
+
+def quiz_results(request, quiz_id):
+    quiz = GrammarExample.objects.filter(pk=quiz_id).first()
+    answers = request.session.get('old_post')
+    if quiz is not None:
+        model = execute(os.path.join(root, "generator/quiz.tx"),
+                        os.path.join(root, "app_files/quizzes/" + quiz.title + ".quiz"), False, False)
+        html = generate("test_results.html", {"quiz": model, "quiz_id": quiz_id, "user_answers":answers})
 
         return HttpResponse(html)
 
@@ -106,11 +119,11 @@ def new_survey(request):
 
     return JsonResponse({'status': True}, safe=False)
 
-
+@csrf_exempt
 def submit_quiz(request):
     quiz_id = request.POST['quiz_id']
     quiz = GrammarExample.objects.filter(pk=quiz_id).first()
-
+    print(request.POST)
     if quiz is not None:
         # statistic params
         num_of_correct = 0
@@ -178,8 +191,8 @@ def submit_quiz(request):
         quiz_statistic.questions.set(quiz_questions)
         quiz_statistic.correct_answers += num_of_correct
         quiz_statistic.save()
-
-    return redirect('/quiz/')
+    request.session['old_post'] = request.POST
+    return redirect('quiz_results', quiz_id)
 
 
 def submit_survey(request):

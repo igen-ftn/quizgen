@@ -6,16 +6,27 @@
 
 {% block body %}
     <br /><br />
-    <form action="/submit_quiz/" method="post">
-
-        <input type="hidden" name="quiz_id" value="{{ quiz_id }}" />
         {% for question in quiz.type.questions %}
             {% if question.multipleAnswers %}
                 <fieldset><legend>Question {{question.question.ordinal}}</legend>
                     <dl><dt>{{question.question.text}} <br/><br/>
                         {% for answer in question.answers %}
+                        <!--za svaki odgovor jedno dugme, ako je tacan oboji u zeleno -->
+                        <!--ako je korisnik odgovorio netacno oboji u crveno -->
                             {% if question.multipleAnswers == 'one answer' %}
-                                <dd><input type="radio" name="{{question.question.text}}" value="{{answer.answer.text}}"> {{answer.answer.text}}</dd>
+                                {% if answer.isCorrect == '+' %}
+                                    {% if user_answers[question.question.text] == answer.answer.text %}
+                                        <dd><button class="btn btn-success  btn-block"> <span class="col-lg-10 col-md-10 col-sm-10">{{answer.answer.text}}</span><span class="badge col-lg-1 col-md-2 col-sm-2 pull-right">Correct answer</span><span class="badge col-lg-1 col-md-2 col-sm-2 pull-right">Your answer</span></button></dd>
+                                    {% else %}
+                                        <dd><button class="btn btn-success  btn-block"> <span class="col-lg-10 col-md-10 col-sm-10">{{answer.answer.text}}</span><span class="badge col-lg-1 col-md-2 col-sm-2 pull-right">Correct answer</span></button></dd>
+                                    {% endif %}
+                                {% else %}
+                                    {% if user_answers[question.question.text] == answer.answer.text %}
+                                        <dd><button class="btn btn-danger  btn-block"><span class="col-lg-10 col-md-10 col-sm-10">{{answer.answer.text}}</span> <span class="badge col-lg-1 col-md-2 col-sm-2 pull-right">Your answer</span></button></dd>
+                                    {% else %}
+                                        <dd><button class="btn btn-default  btn-block"> <span class="col-lg-10 col-md-10 col-sm-10">{{answer.answer.text}}</span></button></dd>
+                                    {% endif %}
+                                {% endif %}
                             {% elif question.multipleAnswers == 'ordered' %}
                                 <p>Set numbers so that the order is correct:</p>
                                 <ul>
@@ -42,9 +53,5 @@
                 </fieldset>
             {% endif %}
         {% endfor %}
-        <input type="Submit" value="{{quiz.type.button.label}}">
-    </form>
-    <script type="text/javascript">
-    </script>
 
 {% endblock %}
