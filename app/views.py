@@ -148,6 +148,7 @@ def new_survey(request):
     try:
         model = execute_on_request(os.path.join(root, "generator"), 'quiz.tx', content)
     except Exception as e:
+        print(str(e))
         return JsonResponse({'status': False, 'message': 'Nije ispostovana gramatika!'}, safe=False)
 
     success, file_path = create_and_get_file_path(title, content, "s")

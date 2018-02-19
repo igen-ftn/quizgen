@@ -44,11 +44,17 @@ function previewQuiz() {
 function addAnswer(questionNum) {
 
         var answerNum = $("#answersDiv" + questionNum).children().length + 1;
+        var words = $('#question' + questionNum).val().split(' ');
+        if (words[words.length-1] == 'ordered' || words[words.length-1] == 'matching'){
+            if(answerNum > 1){
+                return;
+            }
+        }
 
         var newAnswer = "<div class=\"form-group\">" +
                     "<label class=\"col-sm-2 control-label\" style=\"text-align:left; width:100px;\">Answer:</label>" +
                     "<div class=\"col-sm-8 form-inline\">" +
-                      "<input type=\"text\" id=\"q" + questionNum + "answer" + answerNum +"\" class=\"form-control\" style=\"width:70%\" placeholder=\"Answer <&quot + tag + &quot>/<'ordered'>/<'matching'> <&quot + text + &quot>\">" +
+                      "<input type=\"text\" id=\"q" + questionNum + "answer" + answerNum +"\" class=\"form-control\" style=\"width:70%\" placeholder=\"Answer [&quot + tag + &quot] <&quot + text + &quot>\">" +
                         "<div class=\"checkbox checkbox-circle\" style=\"margin-left:43px;\">" +
                             "<input id=\"q" + questionNum + "ans" + answerNum + "\" type=\"checkbox\">" +
                             "<label for=\"q" + questionNum + "ans" + answerNum + "\">" +
@@ -68,7 +74,7 @@ function addQuestion() {
         var newQuestion = "<div><div class=\"form-group\">" +
                     "<label class=\"col-sm-2 control-label\" style=\"text-align:left; width:100px;\">Question:</label>" +
                     "<div class=\"col-sm-8\">" +
-                        "<textarea  class=\"form-control\" id=\"question" + questionNum + "\" rows=\"5\" style=\"width:88%; resize:none;\" placeholder=\"Question &lt;order&gt; &lt;&quot; + text + &quot;&gt; &lt;'one answer'/'multiple answers'&gt;\"></textarea>" +
+                        "<textarea  class=\"form-control\" id=\"question" + questionNum + "\" rows=\"5\" style=\"width:88%; resize:none;\" placeholder=\"Question &lt;order&gt; &lt;&quot; + text + &quot;&gt; &lt;'one answer'/'multiple answers'/'ordered'/'matching'&gt;\"></textarea>" +
                     "</div>" +
                 "</div>" +
                 "<div class=\"form-group\">" +
@@ -80,7 +86,7 @@ function addQuestion() {
                     "<div class=\"form-group\">" +
                         "<label class=\"col-sm-2 control-label\" style=\"text-align:left; width:100px;\">Answer:</label>" +
                         "<div class=\"col-sm-8 form-inline\">" +
-                          "<input type=\"text\" class=\"form-control\" id=\"q" + questionNum + "answer1\" style=\"width:70%\" placeholder=\"Answer <&quot + tag + &quot>/<'ordered'>/<'matching'> <&quot + text + &quot>\">" +
+                          "<input type=\"text\" class=\"form-control\" id=\"q" + questionNum + "answer1\" style=\"width:70%\" placeholder=\"Answer [&quot + tag + &quot] <&quot + text + &quot>\">" +
                             "<div class=\"checkbox checkbox-circle\" style=\"margin-left:43px;\">" +
                                 "<input id=\"q" + questionNum + "ans1\" type=\"checkbox\">" +
                                 "<label for=\"q" + questionNum + "ans1\">" +
