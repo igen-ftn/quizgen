@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block jumbo %}
+    <h2>Survey statistic</h2>
+{% endblock %}
+
+{% block body %}
+    <br /><br />
+    <h4>Survey taken: <b>{{ survey_statistic.taken_test }} time(s)</b></h4>
+    <hr>
+    <h4>Questions:</h4>
+    {% for question in survey_statistic.questions.all %}
+        <div class="test_block_survey_2">
+            <label style="font-size:17px">{{ question.text }}</label>
+            {% for answer in question.answers.all %}
+                <div class="test_block_survey test_block_2">
+                    <label>{{ answer.key }}
+                        {% if answer.value != "empty" %}<span>- {{ answer.value }}</span>{% endif %}
+                    </label>
+                    <div class="start_div">
+                        <button class="btn btn-success btn-circle" style="width: 100px" type="submit" >
+                            Votes: {{ answer.num_of_answers }}
+                        </button>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endfor %}
+
+{% endblock %}

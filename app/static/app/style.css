@@ -179,6 +179,23 @@
     border: 1px solid #b0b0b0;
     margin-bottom: 15px;
 }
+.test_block_survey {
+    width: 700px;
+    padding: 10px;
+    height: 56px;
+    background-color: #d7d7d7;
+    border: 1px solid #b0b0b0;
+    margin-bottom: 15px;
+}
+.test_block_survey_2 {
+    padding: 10px;
+    background-color: #fcfcfc;
+    border: 1px solid #b0b0b0;
+    margin-bottom: 15px;
+}
+.test_block_survey label {
+    margin-top: 7px;
+}
 .test_block label {
     margin-top: 7px;
 }

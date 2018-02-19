@@ -142,8 +142,8 @@ def new_quiz(request):
 def new_survey(request):
     title = request.POST['title']
     content = request.POST['content']
-    # title = "Survey 3"
-    # content = get_exapmle_from_file(os.path.join(root, "app_files/surveys/Survey 1.survey"))[0]
+    # title = "Survey 5"
+    # content = get_exapmle_from_file(os.path.join(root, "app_files/surveys/Second test example.survey"))[0]
 
     try:
         model = execute_on_request(os.path.join(root, "generator"), 'quiz.tx', content)
@@ -240,6 +240,7 @@ def submit_quiz(request):
     return redirect('quiz_results', quiz_id)
 
 
+@csrf_exempt
 def submit_survey(request):
     survey_id = request.POST['survey_id']
     survey = GrammarExample.objects.filter(pk=survey_id).first()
@@ -284,6 +285,10 @@ def submit_survey(request):
                         survey_answer = Answer.objects.create(survey_id=survey_id, key=key, value=value)
                     survey_answer.num_of_answers += 1
                     survey_answer.save()
+                    survey_question = SurveyQuestion.objects.filter(survey_id=survey_id,
+                                                                    text=question.question.text).first()
+                    survey_question.answers.add(survey_answer)
+                    survey_question.save()
             elif question.questionType.label == 'Rank order':
                 for answer in question.questionType.answers:
                     survey_answer = Answer.objects.filter(survey_id=survey_id, key=answer.text).first()
@@ -294,10 +299,12 @@ def submit_survey(request):
                     survey_answer.save()
             else:
                 text = request.POST[question.question.text]
-                survey_question_answer = Answer.objects.create(survey_id=survey_id, key=text)
+                survey_question_answer = Answer.objects.create(survey_id=survey_id, key=text, num_of_answers=1)
                 survey_question = SurveyQuestion.objects.filter(survey_id=survey_id, text=question.question.text).first()
                 survey_question.answers.add(survey_question_answer)
                 survey_question.save()
+
+        survey_statistic.save()
 
     return redirect('/survey/')
 
@@ -331,8 +338,6 @@ def create_and_fill_object(model, survey_id):
             for answer in question.questionType.answers:
                 survey_question_answer = Answer.objects.create(survey_id=survey_id, key=answer.text)
                 survey_question_answers.append(survey_question_answer)
-        else:
-            continue
 
         survey_question.answers.set(survey_question_answers)
         survey_question.save()
@@ -353,6 +358,14 @@ def quiz_statistic(request, quiz_id):
         (quiz_statistic.correct_answers / (quiz_statistic.taken_test * len(quiz_statistic.questions.all()))) * 100)
 
     return render(request, 'statistic/quiz_statistic.html', {'quiz_statistic': quiz_statistic, 'accuracy': accuracy})
+
+
+def survey_statistic(request, survey_id):
+    survey_statistic = SurveyStatistic.objects.filter(survey_id=survey_id).first()
+    if survey_statistic is None:
+        return redirect('/survey/')
+
+    return render(request, 'statistic/survey_statistic.html', {'survey_statistic': survey_statistic})
 
 
 def get_correct_answer(answers):

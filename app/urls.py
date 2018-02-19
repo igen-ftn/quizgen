@@ -16,5 +16,6 @@ urlpatterns = [
     url(r'^submit_quiz/$', views.submit_quiz, name='submit_quiz'),
     url(r'^submit_survey/$', views.submit_survey, name='submit_survey'),
     url(r'^quiz_statistic/(?P<quiz_id>\d+)/$', views.quiz_statistic, name='quiz_statistic'),
+    url(r'^survey_statistic/(?P<survey_id>\d+)/$', views.survey_statistic, name='survey_statistic'),
     url(r'^quiz_results/(?P<quiz_id>\d+)/$', views.quiz_results, name='quiz_results'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
