@@ -1,6 +1,7 @@
 # custom ignore
 .idea
 db.sqlite3
+app/migrations
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

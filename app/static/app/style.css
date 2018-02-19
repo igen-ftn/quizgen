@@ -188,3 +188,23 @@
 .test_block_2{
     width: 100%;
 }
+
+.home-link {
+  background-color: #990000;
+  padding: 4em;
+  border-radius: 10px;
+  color: white !important;
+}
+
+.home-link:hover {
+  box-shadow: 4px 4px 8px black;
+}
+
+.navbar-brand {
+  padding: 0px;
+}
+.navbar-brand>img {
+  height: 100%;
+  padding: 15px;
+  width: auto;
+}
