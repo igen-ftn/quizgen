@@ -55,16 +55,22 @@
                                     {% endfor %}
                                 </ol>
                             {% elif question.multipleAnswers == 'matching' %}
-                                <ol style="display: inline-block;">
+                                <ol class="col-lg-6 col-md-3 col-sm-6" style="display: inline-block;">
                                     {% for matchedAnswers in answer.answer.matchedAnswers  %}
-                                        <li>{{matchedAnswers.key}}</li>
+                                        <li><button class="btn btn-default btn-block">{{matchedAnswers.key}}</button></li>
                                     {% endfor %}
                                 </ol>
-                                <ul style="display: inline-block;">
+                                <ol class="col-lg-6 col-md-9 col-sm-6" style="display: inline-block;">
                                     {% for matchedAnswers in answer.answer.matchedAnswers  %}
-                                        <li>{{matchedAnswers.value}} <input type="number" name="{{matchedAnswers.value}}" value=""></li>
+                                        <dd>
+                                            {% if user_answers[matchedAnswers.value][0]|compare(loop.index) %}
+                                                <dd><button class="btn btn-success  btn-block"> <span class="col-lg-5 col-md-5 col-sm-5">{{matchedAnswers.value}}</span><span class="badge col-lg-5 col-md-5 col-sm-5 pull-right">Match</span></button></dd>
+                                            {% else %}
+                                                <dd><button class="btn btn-danger  btn-block"><span class="col-lg-5 col-md-5 col-sm-5">{{matchedAnswers.value}}</span> <span class="badge col-lg-5 col-md-5 col-sm-5 pull-right">Mismatch Your answer {{user_answers[matchedAnswers.value][0]}}</span></button></dd>
+                                            {% endif %}
+                                        </dd>
                                     {% endfor %}
-                                </ul>
+                                </ol>
                             {% else %}
                                 <dd><input type="checkbox" name="{{question.question.text}}" value="{{answer.answer.text}}"> {{answer.answer.text}}</dd>
                             {% endif %}

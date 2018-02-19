@@ -26,12 +26,19 @@ def check_order(value, list, index):
     else:
         return False
 
+def compare(value, index):
+    if value == str(index):
+        return True
+    else:
+        return False
+
 def add_filters():
     loader = jinja2.PackageLoader('app', 'generator/templates')
     env = jinja2.Environment(autoescape=True, loader=loader)
     env.filters['contains'] = contains
     jinja2.filters.FILTERS['contains'] = contains
     jinja2.filters.FILTERS['check_order'] = check_order
+    jinja2.filters.FILTERS['compare'] = compare
 
 def home(request):
     return render(request, 'quizgen/home.html')
