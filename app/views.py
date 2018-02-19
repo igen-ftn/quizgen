@@ -20,12 +20,18 @@ def contains(value, list, question):
     else:
         return False
 
+def check_order(value, list, index):
+    if str(index) == list[value][0]:
+        return True
+    else:
+        return False
+
 def add_filters():
     loader = jinja2.PackageLoader('app', 'generator/templates')
     env = jinja2.Environment(autoescape=True, loader=loader)
     env.filters['contains'] = contains
     jinja2.filters.FILTERS['contains'] = contains
-
+    jinja2.filters.FILTERS['check_order'] = check_order
 
 def home(request):
     return render(request, 'quizgen/home.html')
@@ -143,6 +149,7 @@ def submit_quiz(request):
     quiz_id = request.POST['quiz_id']
     quiz = GrammarExample.objects.filter(pk=quiz_id).first()
     request.session['old_post'] = dict(six.iterlists(request.POST))
+    print(request.session['old_post'])
     if quiz is not None:
         # statistic params
         num_of_correct = 0

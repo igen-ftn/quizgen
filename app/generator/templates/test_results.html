@@ -44,11 +44,16 @@
                                 {% endif %}
                             {% elif question.multipleAnswers == 'ordered' %}
                                 <p>Set numbers so that the order is correct:</p>
-                                <ul>
+                                <ol>
                                     {% for orderedAnswer in answer.answer.sortedAnswers %}
-                                        <li> <label for="">{{orderedAnswer}}</label> <input type="number" name="{{orderedAnswer}}" value=""> </li>
+                                        Correct Rank Order: {{ loop.index }}
+                                        {% if orderedAnswer|check_order(user_answers,loop.index) %}
+                                            <dd><button class="btn btn-success  btn-block"> <span class="col-lg-10 col-md-10 col-sm-10">{{orderedAnswer}}</span><span class="badge col-lg-1 col-md-2 col-sm-2 pull-right">Your answer {{user_answers[orderedAnswer][0]}}</span></button></dd>
+                                        {% else %}
+                                            <dd><button class="btn btn-danger  btn-block"><span class="col-lg-10 col-md-10 col-sm-10">{{orderedAnswer}}</span> <span class="badge col-lg-1 col-md-2 col-sm-2 pull-right">Your answer {{user_answers[orderedAnswer][0]}}</span></button></dd>
+                                        {% endif %}
                                     {% endfor %}
-                                </ul>
+                                </ol>
                             {% elif question.multipleAnswers == 'matching' %}
                                 <ol style="display: inline-block;">
                                     {% for matchedAnswers in answer.answer.matchedAnswers  %}
