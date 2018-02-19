@@ -346,7 +346,11 @@ def create_and_fill_object(model, survey_id):
 
 def quiz_statistic(request, quiz_id):
     quiz_statistic = QuizStatistic.objects.filter(quiz_id=quiz_id).first()
-    accuracy = int((quiz_statistic.correct_answers / (quiz_statistic.taken_test*len(quiz_statistic.questions.all())))*100)
+    if quiz_statistic is None:
+        return redirect('/quiz/')
+
+    accuracy = int(
+        (quiz_statistic.correct_answers / (quiz_statistic.taken_test * len(quiz_statistic.questions.all()))) * 100)
 
     return render(request, 'statistic/quiz_statistic.html', {'quiz_statistic': quiz_statistic, 'accuracy': accuracy})
 
